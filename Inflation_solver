@@ -1,0 +1,20 @@
+from scipy.integrate import odeint
+import numpy as np
+
+class InflationSolver:
+    def __init__(self, kP=1.047, kI=2.31e-3, kD=0.178):
+        self.kP = kP
+        self.kI = kI
+        self.kD = kD
+        
+    def inflation_eq(self, y, t, S6D):
+        H, phi, phi_dot = y
+        dHdt = -self.kP*H + self.kI*phi**2 + self.kD*phi_dot
+        dphidt = phi_dot
+        dphi_dotdt = -3*H*phi_dot - np.exp(phi)*S6D
+        return [dHdt, dphidt, dphi_dotdt]
+    
+    def solve(self, tmax=1e-32, S6D=3.2e19):
+        t = np.linspace(0, tmax, 10000)
+        sol = odeint(self.inflation_eq, [1e18, 0, 0], t, args=(S6D,))
+        return t, sol
