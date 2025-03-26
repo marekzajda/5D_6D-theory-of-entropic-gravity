@@ -1,0 +1,22 @@
+import numpy as np
+
+class NeutrinoMassSolver:
+    def __init__(self, S6D=3.2e19, M6=1.2e16):
+        self.S6D = S6D
+        self.M6 = M6  # 6D Planckova hmotnost
+        
+    def majorana_mass(self, g6D=0.65):
+        """Výpočet Majoranovských hmotností neutrin"""
+        return (self.S6D**2 / self.M6**3) * np.exp(-8*np.pi**2 / g6D**2)
+    
+    def mixing_matrix(self, theta12=33.44, theta23=49.2, theta13=8.57):
+        """Vytvoření PMNS matice z úhlů míšení"""
+        s12, c12 = np.sin(np.radians(theta12)), np.cos(np.radians(theta12))
+        s23, c23 = np.sin(np.radians(theta23)), np.cos(np.radians(theta23))
+        s13, c13 = np.sin(np.radians(theta13)), np.cos(np.radians(theta13))
+        
+        return np.array([
+            [c12*c13, s12*c13, s13*np.exp(-1j*delta)],
+            [-s12*c23-c12*s23*s13, c12*c23-s12*s23*s13, s23*c13],
+            [s12*s23-c12*c23*s13, -c12*s23-s12*c23*s13, c23*c13]
+        ])
