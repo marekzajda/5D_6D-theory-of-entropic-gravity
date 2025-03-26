@@ -1,0 +1,17 @@
+import unittest
+from cosmic_pid import CosmicPID
+from yukawa_integrator import YukawaCalculator
+
+class TestUEST(unittest.TestCase):
+    def test_pid_stability(self):
+        pid = CosmicPID()
+        t, H = pid.solve()
+        self.assertTrue(np.all(H > 0))  # Hubble by měl být vždy kladný
+        
+    def test_yukawa_integral(self):
+        yc = YukawaCalculator()
+        y_top = yc.compute_yukawa(3)
+        self.assertAlmostEqual(y_top, 1.2, delta=0.1)
+
+if __name__ == "__main__":
+    unittest.main()
