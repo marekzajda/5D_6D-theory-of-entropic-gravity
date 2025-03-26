@@ -1,0 +1,11 @@
+import healpy as hp
+import matplotlib.pyplot as plt
+
+class CMBVisualizer:
+    def __init__(self, nside=256):
+        self.nside = nside
+        
+    def plot_map(self, cmb_map, title="CMB mapa s UEST korekcemi"):
+        hp.mollview(cmb_map, title=title, unit="μK")
+        hp.graticule()
+        plt.savefig('uest_cmb.png', bbox_inches='tight')
