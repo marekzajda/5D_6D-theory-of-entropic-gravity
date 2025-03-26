@@ -1,0 +1,17 @@
+import unittest
+import numpy as np
+from cosmic_pid import CosmicPID
+
+class TestUEST(unittest.TestCase):
+    def test_pid_convergence(self):
+        pid = CosmicPID()
+        t, H = pid.solve()
+        self.assertTrue(np.all(np.diff(H) < 0))  # Hubble by měl klesat
+        
+    def test_entropy_operator(self):
+        qe = QuantumEntropy()
+        S_op = qe.entropy_operator(3.2e19)
+        self.assertEqual(S_op.shape, (10,10))
+
+if __name__ == "__main__":
+    unittest.main()
