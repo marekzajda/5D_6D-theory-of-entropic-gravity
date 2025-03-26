@@ -1,0 +1,22 @@
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+class CYVisualizer:
+    def __init__(self, chi=-200):
+        self.chi = chi
+        
+    def plot_quintic(self):
+        """3D vizualizace kvintické CY variety"""
+        theta = np.linspace(0, 2*np.pi, 100)
+        phi = np.linspace(0, np.pi, 100)
+        theta, phi = np.meshgrid(theta, phi)
+        
+        x = np.sin(phi)*np.cos(theta)
+        y = np.sin(phi)*np.sin(theta)
+        z = np.cos(phi)
+        
+        fig = plt.figure(figsize=(10,8))
+        ax = fig.add_subplot(111, projection='3d')
+        ax.plot_surface(x, y, z, color='b', alpha=0.3)
+        plt.title(f"Calabi-Yau varieta s χ={self.chi}")
+        plt.savefig('cy_manifold.png', dpi=300)
