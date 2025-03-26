@@ -1,0 +1,9 @@
+# Jednoduchá ukázka PID regulátoru
+   import matplotlib.pyplot as plt
+   def show_PID(k_P=1.047, k_I=0.00231):
+       time = [0, 1, 2, 3]
+       entropy = [k_P * t + k_I * t**2 for t in time]
+       plt.plot(time, entropy)
+       plt.xlabel('Čas')
+       plt.ylabel('Entropie')
+   show_PID()
