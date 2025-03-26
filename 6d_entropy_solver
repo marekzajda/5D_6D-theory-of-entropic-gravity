@@ -1,0 +1,20 @@
+import numpy as np
+from scipy.integrate import solve_ivp
+
+class EntropySolver6D:
+    def __init__(self, G6=6.674e-11, S6D=3.2e19):
+        self.G6 = G6  # 6D gravitační konstanta
+        self.S6D = S6D  # Entropická hustota [kB GeV]
+        
+    def einstein_eq(self, t, y, g_mn):
+        """Řešení 6D Einsteinových rovnic s entropickým členem"""
+        R_mn, S = y[0], y[1]
+        dRdt = -8*np.pi*self.G6 * (np.gradient(S)**2 - 0.5*g_mn*np.sum(np.gradient(S)**2))
+        dSdt = np.linalg.det(g_mn)**0.5 * self.S6D
+        return [dRdt, dSdt]
+    
+    def solve(self, g_mn_init, t_span=(0, 1e-10), steps=1000):
+        """Numerické řešení pro počáteční metriku g_mn_init"""
+        sol = solve_ivp(self.einstein_eq, t_span, [0, self.S6D], 
+                       args=(g_mn_init,), dense_output=True)
+        return sol.t, sol.y
