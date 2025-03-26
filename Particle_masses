@@ -1,0 +1,22 @@
+from sympy import symbols, integrate, Matrix
+
+class ParticleMassCalculator:
+    def __init__(self, chi=-200):
+        self.chi = chi
+        self.J = self._setup_cy_forms()
+        
+    def _setup_cy_forms(self):
+        """Definuje diferenciální formy na CY varietě"""
+        z1, z2, z3 = symbols('z1 z2 z3')
+        return Matrix([
+            [1 + z1*z1.conjugate(), z1*z2.conjugate(), z1*z3.conjugate()],
+            [z2*z1.conjugate(), 1 + z2*z2.conjugate(), z2*z3.conjugate()],
+            [z3*z1.conjugate(), z3*z2.conjugate(), 1 + z3*z3.conjugate()]
+        ])
+    
+    def yukawa_integral(self, gen_i, gen_j):
+        """Symbolický výpočet Yukawovských integrálů"""
+        omega_i = self.J[gen_i, gen_i]
+        omega_j = self.J[gen_j, gen_j]
+        integrand = omega_i * omega_j * self.J.det()
+        return integrate(integrand, (z1,0,1), (z2,0,1), (z3,0,1))
