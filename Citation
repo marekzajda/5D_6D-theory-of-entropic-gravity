@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+   message: "Citovat tento software: Marek Zajda (2024). 5D/6D Entropic Gravity Theory"
+   authors:
+     - family-names: "Zajda"
+       given-names: "Marek"
+     - calculations and scripts by deepseek 
+   title: "Unified 5D/6D Entropic Spacetime Theory"
+   version: "1.0"
