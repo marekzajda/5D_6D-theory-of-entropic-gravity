@@ -1,0 +1,23 @@
+import numpy as np
+from scipy.integrate import nquad
+
+class YukawaCalculator:
+    def __init__(self, chi=-200):
+        self.chi = chi
+        self.h11 = 1  # Počet (1,1)-forem
+        self.h21 = 101  # Počet (2,1)-forem
+        
+    def CY_volume(self):
+        """Výpočet objemu CY variety pro χ=-200"""
+        return (2*np.pi)**3 * np.sqrt(-self.chi/8)
+        
+    def integrand(self, z1, z2, z3):
+        """Integrand pro Yukawovské vazby"""
+        r = np.sqrt(z1**2 + z2**2 + z3**2)
+        return np.exp(-r**2) * (1 + r**4)**(-1/3)
+        
+    def compute_yukawa(self, generation):
+        """Výpočet Yukawovských koeficientů"""
+        omega = {1: 0.1, 2: 0.5, 3: 1.0}[generation]  # Příkl. váhy
+        integral, _ = nquad(self.integrand, [[0,1], [0,1], [0,1]])
+        return omega * integral / self.CY_volume()
