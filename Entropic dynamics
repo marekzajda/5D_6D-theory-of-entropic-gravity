@@ -1,0 +1,13 @@
+import numpy as np
+from scipy.integrate import solve_ivp
+
+def entropy_dynamics(t, S, alpha, beta, gamma):
+    dSdt = alpha * np.gradient(np.gradient(S)) + beta * np.gradient(S)**2 - gamma * S**3
+    return dSdt
+
+# Počáteční podmínky
+S0 = np.random.rand(100)  
+t_span = [0, 1]
+params = (0.1, 0.5, 0.01)  # alpha, beta, gamma
+
+solution = solve_ivp(entropy_dynamics, t_span, S0, args=params)
