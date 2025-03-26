@@ -1,0 +1,23 @@
+import numpy as np
+from scipy.integrate import odeint
+
+class CosmicPID:
+    def __init__(self, kP=1.047, kI=2.31e-3, kD=0.178, S6D=3.2e19):
+        self.kP = kP  # Proporcionální koeficient
+        self.kI = kI  # Integrační koeficient
+        self.kD = kD  # Derivační koeficient
+        self.S6D = S6D  # Entropická hustota [kB GeV]
+        
+    def model(self, y, t, rho_m, rho_c):
+        H, I = y  # H = Hubbleův parametr, I = integrál entropie
+        dHdt = -self.kP*(rho_m - rho_c) - self.kI*I - self.kD*self.S6D
+        dIdt = self.S6D
+        return [dHdt, dIdt]
+    
+    def solve(self, t_max=13.8, steps=1000):
+        """Simuluje kosmickou expanzi v miliardách let"""
+        t = np.linspace(0, t_max, steps)
+        rho_m = 0.3 * (1 + t)**(-3)  # Hustota hmoty
+        rho_c = 1.0  # Kritická hustota
+        sol = odeint(self.model, [70, 0], t, args=(rho_m, rho_c))
+        return t, sol[:,0]  # Vrací čas a H(t)
