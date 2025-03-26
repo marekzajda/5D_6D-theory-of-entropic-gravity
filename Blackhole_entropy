@@ -1,0 +1,14 @@
+import numpy as np
+
+class BlackHoleEntropy:
+    def __init__(self, S6D=3.2e19):
+        self.S6D = S6D
+        
+    def entropy_correction(self, A, G5=6.674e-11):
+        """Korekce entropie černé díry"""
+        S0 = A / (4*G5)
+        return S0 + np.log(self.S6D) - 1/(2*self.S6D)
+    
+    def hawking_temperature(self, M, c=3e8):
+        """Upravená Hawkingova teplota"""
+        return (hbar*c**3)/(8*np.pi*G*M) * (1 + 1/(2*self.S6D))
