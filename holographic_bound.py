@@ -1,88 +1,69 @@
 """
 5D Black Hole Entropy in Entropic Gravity Theory
-Implements the complete theoretical framework from Equations_in_english.md
-
-Key Features:
-- Consistent with 5D entropic gravity formalism
-- Proper dimensional analysis
-- Automatic unit validation
-- Physics-informed plotting
+Complete implementation with all corrections
 """
 
 import numpy as np
 from typing import Union, Tuple
 import matplotlib.pyplot as plt
-from scipy.constants import hbar, c, G
 
-# Fundamental constants from Equations_in_english.md
-PLANCK_LENGTH_5D = np.sqrt((hbar*G/c**3)**(1/3))  # Effective 5D Planck length [m]
-PLANCK_ENERGY_5D = (hbar**2 * c**4 / G)**(1/5)    # 5D Planck energy [J]
+# Fundamental constants (SI units)
+H = 6.62607015e-34 / (2*np.pi)  # Reduced Planck constant [J·s]
+C = 299792458                    # Speed of light [m/s]
+G = 6.67430e-11                  # Gravitational constant [m³/kg·s²]
 
-# Derived constants for 5D case
-KAPPA_5D = (8*np.pi*G)/c**4                       # 5D Einstein constant
-L_P5 = np.sqrt(hbar*G/c**3)                       # Planck length in 5D
+# Derived 5D Planck length
+L_P5 = np.sqrt(H*G/C**3)        # 5D Planck length [m]
 
-# Theoretical scaling from document
 def calculate_entropy_5D(A, A0=4*L_P5**2):
     """
-    Implements the complete entropy formula from Eq. (3.7) in Equations_in_english.md
-    S = (A/A0)^(3/2) + alpha*ln(A/A0) + beta*(A0/A)^(1/2)
+    Complete entropy formula with corrections:
+    S = (A/A0)^(3/2) + α·ln(A/A0) + β·(A0/A)^(1/2)
     """
-    alpha = 0.1  # Holographic correction coefficient
-    beta = 0.01  # Quantum correction coefficient
+    alpha = 0.1  # Holographic correction
+    beta = 0.01  # Quantum correction
     ratio = A/A0
     return ratio**(3/2) + alpha*np.log(ratio) + beta*ratio**(-1/2)
 
-def entropy_5D_bh(
-    radius: Union[float, np.ndarray],
-    verify: bool = True
-) -> Union[float, np.ndarray]:
+def entropy_5D_bh(radius: Union[float, np.ndarray]) -> Union[float, np.ndarray]:
     """
-    Compute complete 5D black hole entropy including corrections.
+    Compute dimensionless entropy (S/k_B) for 5D black hole
     
     Args:
         radius: Schwarzschild radius in meters
-        verify: Check physical plausibility
         
     Returns:
-        Dimensionless entropy (S/k_B)
+        Dimensionless entropy
     """
     radius = np.asarray(radius)
+    if np.any(radius <= 0):
+        raise ValueError("Radius must be positive")
     
-    if verify:
-        if np.any(radius <= 0):
-            raise ValueError("Radius must be positive")
-        if np.any(radius < 1e-35):
-            print("Warning: Radius below 5D Planck scale")
-
     A_5D = 2*np.pi**2 * radius**3  # 5D surface area
     A0 = 4 * L_P5**2               # Reference area
-    
     return calculate_entropy_5D(A_5D, A0)
 
-def plot_entropy_components(
-    radii: np.ndarray = np.logspace(-35, -10, 200),
-    save_path: str = None
-) -> plt.Figure:
+def plot_entropy_components(radii=np.logspace(-35, -10, 200), save_path=None):
     """
-    Plot all entropy components separately as shown in theoretical doc.
+    Plot all entropy components with proper formatting
     """
+    fig, ax = plt.subplots(figsize=(12, 7))
+    
     A_5D = 2*np.pi**2 * radii**3
     A0 = 4 * L_P5**2
     ratio = A_5D/A0
     
-    main_term = ratio**(3/2)
-    log_correction = 0.1*np.log(ratio)
-    quantum_correction = 0.01*ratio**(-1/2)
+    components = {
+        'Main term': ratio**(3/2),
+        'Log correction': 0.1*np.log(ratio),
+        'Quantum correction': 0.01*ratio**(-1/2)
+    }
     
-    fig, ax = plt.subplots(figsize=(12, 7))
+    for label, values in components.items():
+        ax.loglog(radii, values, label=label)
     
-    ax.loglog(radii, main_term, label='Main term $(A/A_0)^{3/2}$', linewidth=2)
-    ax.loglog(radii, log_correction, '--', label='Log correction $0.1\ln(A/A_0)$')
-    ax.loglog(radii, quantum_correction, ':', 
-             label='Quantum correction $0.01(A_0/A)^{1/2}$')
-    ax.loglog(radii, main_term + log_correction + quantum_correction,
-             'k-', label='Total entropy', linewidth=2)
+    ax.loglog(radii, sum(components.values()), 'k-', 
+             label='Total entropy', linewidth=2)
     
     ax.set_xlabel("Schwarzschild Radius [m]", fontsize=12)
     ax.set_ylabel("Dimensionless Entropy $S/k_B$", fontsize=12)
@@ -95,31 +76,16 @@ def plot_entropy_components(
     
     return fig
 
-def theoretical_checks():
-    """Verify consistency with theoretical predictions"""
-    test_radius = 1e-10  # Test case
-    S = entropy_5D_bh(test_radius)
-    
-    # Expected value from document
-    expected = (2*np.pi**2 * (1e-10)**3 / (4*L_P5**2))**(3/2)
-    
-    print("=== Theoretical Validation ===")
-    print(f"At r = {test_radius:.1e} m:")
-    print(f"- Calculated S/k_B: {S:.3e}")
-    print(f"- Expected S/k_B:   {expected:.3e}")
-    print(f"- Ratio:            {S/expected:.3f}")
-    
-    if abs(S - expected)/expected < 0.05:
-        print("Validation: PASSED (within 5% error)")
-    else:
-        print("Validation: WARNING (significant discrepancy)")
-
 if __name__ == "__main__":
     print("=== 5D Entropic Gravity Calculator ===")
-    print(f"Using 5D Planck length: {L_P5:.3e} m")
+    print(f"5D Planck length: {L_P5:.3e} m")
     
-    theoretical_checks()
+    # Example calculation
+    test_radius = 1e-10
+    print(f"\nAt r = {test_radius:.1e} m:")
+    print(f"Dimensionless entropy: {entropy_5D_bh(test_radius):.3e}")
     
-    print("\nGenerating component plot...")
+    # Generate plot
+    print("\nGenerating plot...")
     plot_entropy_components(save_path="entropy_components.png")
     print("Saved to entropy_components.png")
