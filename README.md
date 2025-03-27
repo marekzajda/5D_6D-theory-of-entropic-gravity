@@ -19,3 +19,11 @@ The full theory is published on Zenodo:
 ## How to Replicate Results  
 - Install dependencies: `pip install -r requirements.txt`  
 - Run `entropic_gravity_5D.ipynb` to reproduce Figure 2 from the paper.  
+
+
+## 🚀 Quick Start
+```bash
+git clone https://github.com/marekzajda/5D_6D-theory-of-entropic-gravity.git
+cd 5D_6D-theory-of-entropic-gravity
+pip install -r requirements.txt
+python holographic_bound.py
