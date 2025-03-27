@@ -12,3 +12,5 @@ def entropy_5D_bh(radius, G5D=1e-42):
 if __name__ == "__main__":  
     # Example from Section 5.3  
     print("S(1e-10 m) =", entropy_5D_bh(1e-10))  
+
+assert np.isclose(entropy_5D_bh(1e-10), 1.2e-31, rtol=1e-3)  # Example from paper  
