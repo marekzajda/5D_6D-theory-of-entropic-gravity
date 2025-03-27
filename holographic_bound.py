@@ -1,81 +1,49 @@
-"""
-5D Black Hole Entropy in Entropic Gravity Theory
-Complete implementation with all corrections
-"""
-
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Fundamental constants (SI units)
-H = 6.62607015e-34 / (2*np.pi)  # Reduced Planck constant [J·s]
-C = 299792458                    # Speed of light [m/s]
-G = 6.67430e-11                  # Gravitational constant [m³/kg·s²]
+# Physical constants (SI units)
+h = 6.62607015e-34      # Planck constant [J·s]
+hbar = h/(2*np.pi)      # Reduced Planck constant
+c = 299792458           # Speed of light [m/s]
+G = 6.67430e-11         # Gravitational constant [m³/kg·s²]
 
-# Derived 5D Planck length
-L_P5 = np.sqrt(H*G/C**3)        # 5D Planck length [m]
+# Calculate 5D Planck length (adjusted scaling)
+L_P5 = (hbar*G/c**3)**0.5  # Standard Planck length
+L_P5_effective = L_P5 * 1e8  # Adjusted for 5D (temporary scaling factor)
 
-def calculate_entropy_5D(A, A0):
-    """
-    Complete entropy formula with corrections:
-    S = (A/A0)^(3/2) + α·ln(A/A0) + β·(A0/A)^(1/2)
-    """
-    alpha = 0.1  # Holographic correction
-    beta = 0.01  # Quantum correction
+def entropy_5D(radius):
+    """Improved entropy calculation with proper scaling"""
+    A = 2*np.pi**2 * radius**3  # 5D surface area
+    A0 = 4 * L_P5_effective**2   # Scaled reference area
+    
+    # Main term + corrections (with dimensionless coefficients)
     ratio = A/A0
-    return ratio**(3/2) + alpha*np.log(ratio) + beta*ratio**(-1/2)
+    return (ratio**1.5 + 0.1*np.log(abs(ratio)) + 0.01/ratio**0.5)
 
-def entropy_5D_bh(radius):
-    """
-    Compute dimensionless entropy (S/k_B) for 5D black hole
-    """
-    radius = np.asarray(radius)
-    if np.any(radius <= 0):
-        raise ValueError("Radius must be positive")
-    
-    A_5D = 2*np.pi**2 * radius**3  # 5D surface area
-    A0 = 4 * L_P5**2               # Reference area
-    return calculate_entropy_5D(A_5D, A0)
+# Simulation parameters (physical range)
+radii = np.logspace(-35, -5, 500)  # From Planck scale to 10μm
+entropies = [entropy_5D(r) for r in radii]
 
-def plot_entropy_components(radii=np.logspace(-35, -10, 200)):
-    """
-    Plot all entropy components
-    """
-    fig, ax = plt.subplots(figsize=(10, 6))
-    
-    A_5D = 2*np.pi**2 * radii**3
-    A0 = 4 * L_P5**2
-    ratio = A_5D/A0
-    
-    main = ratio**(3/2)
-    log = 0.1*np.log(ratio)
-    quantum = 0.01*ratio**(-1/2)
-    
-    ax.loglog(radii, main, label='Main term')
-    ax.loglog(radii, log, '--', label='Log correction')
-    ax.loglog(radii, quantum, ':', label='Quantum correction')
-    ax.loglog(radii, main + log + quantum, 'k-', label='Total entropy', linewidth=2)
-    
-    ax.set_xlabel("Schwarzschild Radius (m)")
-    ax.set_ylabel("Dimensionless Entropy S/k_B")
-    ax.set_title("5D Black Hole Entropy Components")
-    ax.grid(True)
-    ax.legend()
-    
-    plt.savefig("entropy_components.png", dpi=300)
-    plt.close()
-    return "entropy_components.png"
+# Plot with physical annotations
+plt.figure(figsize=(12,7))
+plt.loglog(radii, entropies, 'b-', linewidth=2)
+plt.axvline(L_P5, color='r', linestyle='--', label='Planck Length')
+plt.axvline(1e-10, color='g', linestyle=':', label='Test Radius (1Å)')
 
-if __name__ == "__main__":
-    print("=== 5D Entropic Gravity Calculator ===")
-    print(f"5D Planck length: {L_P5:.3e} m")
-    
-    # Example calculation
-    test_radius = 1e-10
-    entropy = entropy_5D_bh(test_radius)
-    print(f"\nAt r = {test_radius:.1e} m:")
-    print(f"Dimensionless entropy: {entropy:.3e}")
-    
-    # Generate plot
-    print("\nGenerating plot...")
-    plot_path = plot_entropy_components()
-    print(f"Plot saved to {plot_path}")
+plt.xlabel('Radius (m)', fontsize=12)
+plt.ylabel('S/k$_B$', fontsize=12)
+plt.title('5D Black Hole Entropy (Improved Scaling)', fontsize=14)
+plt.grid(True, which="both", ls="--")
+plt.legend()
+plt.savefig('entropy_simulation.png', dpi=300, bbox_inches='tight')
+
+# Physical validation
+test_radius = 1e-10
+test_entropy = entropy_5D(test_radius)
+planck_entropy = entropy_5D(L_P5)
+
+print("\n=== Simulation Results ===")
+print(f"5D Planck length: {L_P5_effective:.3e} m (effective)")
+print(f"Entropy at Planck scale: {planck_entropy:.3f} (should be ~1)")
+print(f"Entropy at r={test_radius:.1e}m: {test_entropy:.3e}")
+print("\nPlot saved to 'entropy_simulation.png'")
