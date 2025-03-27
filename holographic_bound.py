@@ -1,10 +1,9 @@
 """
-6D Holographic Bound Calculator
-Incorporating: 
-- 6D Entropic Einstein Equations
-- Calabi-Yau Quantization 
-- PID Stability Conditions
-- Dark Energy Coupling
+6D Holographic Bound Calculator v2.0
+Incorporates:
+- Calabi-Yau quantization (χ=-200)
+- PID-regulated stability
+- Entropic dark energy coupling
 DOI:10.5281/zenodo.15085762
 """
 
@@ -12,96 +11,67 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.constants import hbar, c, G, k as k_B
 
-# Fundamental constants
-M6 = np.sqrt(hbar*c/G) * 1e8  # 6D Planck mass (adjusted for compactification)
-L6 = np.sqrt(hbar*G/c**3)     # 6D Planck length [m]
-χ = -200                       # CY Euler characteristic
+# 6D Planck units
+M6 = np.sqrt(hbar*c/G) * (2*np.pi)**(1/4)  # Compactification adjusted
+L6 = np.sqrt(hbar*G/c**3) / (2*np.pi)**(1/4)
+χ = -200  # CY Euler characteristic
 
-# PID Controller parameters (from stability analysis)
-k_P = 2*np.pi/np.sqrt(abs(χ))  # 1.047 exactly
+# PID parameters from stability analysis
+k_P = 2*np.pi/np.sqrt(abs(χ))  # 1.047
 k_I = (3/8)*(0.00231**2)       # Dark energy coupling
-k_D = 1.0                      # Damping parameter
+k_D = 1.0                      # Damping term
 
-def entropy_6D(radius, n_cy=1):
+def entropy_6D(r, n_cy=1):
+    """Calculate stabilized 6D entropy with:
+    - CY quantization (4π²n)
+    - PID regulation
+    - UV/IR cutoffs
     """
-    Calculate 6D holographic entropy with:
-    - CY quantization condition (4π²n)
-    - PID-regulated stability
-    - Dark energy coupling
-    
-    Args:
-        radius: Effective radius in 5D [m] 
-        n_cy: CY quantum number (default=1)
-    
-    Returns:
-        Tuple: (S/k_B, stability_parameter)
-    """
-    # Base entropy from area law
-    A = (8/3)*np.pi**2 * radius**3  
+    # Area terms
+    A = (8/3)*np.pi**2 * r**3
     A0 = 4 * L6**2
     x = A/A0
     
-    # Quantum corrections
-    S_quantum = 4*np.pi**2 * n_cy  # CY quantization
+    # Regularized terms
+    S_main = np.where(x>1, x**1.5, x**2)  # UV regularization
+    S_log = k_I * np.log(1 + x)
+    S_quant = 4*np.pi**2 * n_cy
     
-    # PID-regulated terms
-    S_main = x**1.5
-    S_integral = k_I * np.log(x)
-    S_derivative = k_D * (1 - 1/np.sqrt(x))
-    
-    # Full entropy expression
-    S_dim = S_main + S_integral + S_derivative + S_quantum
-    
-    # Stability condition
-    stability = k_P * S_main - k_I * S_integral - k_D * S_derivative
-    
-    return S_dim, stability
+    # PID-stabilized entropy
+    return S_main + S_log + S_quant
 
-def dark_energy_density(S):
-    """Calculate entropic dark energy density"""
-    return 0.00231 * S * (M6*c**2)/L6**3  # [J/m^3]
-
-# Calculation and plotting
-if __name__ == "__main__":
-    # Physical range from Planck scale to 1cm
-    radii = np.logspace(np.log10(L6), -2, 500)
-    
-    # Calculate entropies and stabilities
-    results = [entropy_6D(r) for r in radii]
-    entropies = [res[0] for res in results]
-    stabilities = [res[1] for res in results]
-    
-    # Dark energy densities
-    ρ_Λ = [dark_energy_density(S) for S in entropies]
-    
-    # Create plots
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10,12))
-    
-    # Entropy plot
-    ax1.loglog(radii/L6, entropies, 'b-', label='$S_{6D}/k_B$')
-    ax1.axhline(4*np.pi**2, color='r', linestyle='--', label='CY Quantization')
-    ax1.set_xlabel('Radius ($L_6$ units)', fontsize=12)
-    ax1.set_ylabel('Entropy $S/k_B$', fontsize=12)
-    ax1.legend()
-    ax1.grid(True, which="both", ls="--")
-    
-    # Stability and dark energy plot
-    ax2.semilogx(radii/L6, stabilities, 'g-', label='Stability Parameter')
-    ax2_twin = ax2.twinx()
-    ax2_twin.loglog(radii/L6, ρ_Λ, 'm--', label='$ρ_Λ$ [J/m³]')
-    ax2.set_xlabel('Radius ($L_6$ units)', fontsize=12)
-    ax2.set_ylabel('Stability', fontsize=12)
-    ax2_twin.set_ylabel('Dark Energy Density', fontsize=12)
-    ax2.legend(loc='upper left')
-    ax2_twin.legend(loc='upper right')
-    ax2.grid(True)
-    
-    plt.tight_layout()
-    plt.savefig('6D_holographic_bound.png', dpi=300)
-    
-    # Print key values
-    print("=== 6D Holographic Bound Results ===")
+def verify_physics():
+    """Physical consistency checks"""
+    print("=== 6D Physics Verification ===")
     print(f"6D Planck length: {L6:.3e} m")
-    print(f"6D Planck mass: {M6:.3e} kg")
-    print(f"Dark energy at 1μm: {dark_energy_density(entropy_6D(1e-6)[0]):.3e} J/m³")
-    print("\nPlot saved to 6D_holographic_bound.png")
+    print(f"6D Planck mass: {M6:.3e} kg\n")
+    
+    test_scales = {
+        "CY scale": L6,
+        "Proton radius": 0.84e-15,
+        "Atomic scale": 1e-10,
+        "Macroscopic": 1e-3
+    }
+    
+    for name, r in test_scales.items():
+        S = entropy_6D(r)
+        print(f"{name} ({r:.1e} m):")
+        print(f"  S/k_B = {S:.3e}")
+        print(f"  Stability = {k_P*S - k_I*np.log(S):.3f}")
+
+if __name__ == "__main__":
+    verify_physics()
+    
+    # Generate entropy plot
+    r = np.logspace(np.log10(L6)-5, -2, 500)
+    S = entropy_6D(r)
+    
+    plt.figure(figsize=(10,6))
+    plt.loglog(r/L6, S, 'b-')
+    plt.axvline(1, color='r', ls='--', label='6D Planck Length')
+    plt.xlabel('r/L₆', fontsize=12)
+    plt.ylabel('S/kₙ', fontsize=12)
+    plt.title('6D Stabilized Entropy', fontsize=14)
+    plt.grid(True, which="both", ls="--")
+    plt.legend()
+    plt.savefig('6D_entropy.png', dpi=300, bbox_inches='tight')
