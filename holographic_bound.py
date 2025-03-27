@@ -162,3 +162,9 @@ class EntropicVisualization(EntropicSolver):
 if __name__ == "__main__":
     simulation = EntropicVisualization()
     simulation.run_simulation()
+
+# 
+import unittest
+class TestHolographicBound(unittest.TestCase):
+    def test_entropy_scaling(self):
+        self.assertAlmostEqual(entropy_6D(L6)/(4*np.pi**2), 1.0, places=2)
