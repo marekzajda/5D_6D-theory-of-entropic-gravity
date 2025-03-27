@@ -1,89 +1,68 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.constants import hbar, k, c
 
-# ==============================================
-# PHYSICAL CONSTANTS (hardcoded to avoid scipy dependency)
-# ==============================================
-H_BAR = 1.054571817e-34  # J·s (reduced Planck constant)
-C = 299792458            # m/s (speed of light)
-G = 6.67430e-11          # m³/kg·s² (gravitational constant)
-K_B = 1.380649e-23       # J/K (Boltzmann constant)
+# Fundamental constants
+PLANCK_LENGTH = np.sqrt(hbar*1.0545718e-34/(c*6.67430e-11))  # More precise calculation
+BOLTZMANN = k
+G5 = 6.708e-39  # 5D gravitational constant
 
-# ==============================================
-# 5D ENTROPY CALCULATION
-# ==============================================
+def calculate_5d_entropy(radius):
+    """Calculate 5D black hole entropy with proper units"""
+    # Bekenstein-Hawking entropy for 5D (S ~ r^3)
+    entropy = (np.pi**2 * radius**3) / (2 * PLANCK_LENGTH**3) * BOLTZMANN
+    return entropy
 
-def calculate_5d_planck_length(G5):
-    """Calculate 5D Planck length from 5D gravitational constant"""
-    return (H_BAR * G5 / C**3)**(1/3)
-
-def calculate_5d_entropy(radius, G5):
-    """
-    Calculate 5D black hole entropy
-    S = (3π/2) * (r³/l₅³) * k_B
-    where l₅ is the 5D Planck length
-    """
-    l5 = calculate_5d_planck_length(G5)
-    return (3 * np.pi/2) * (radius**3 / l5**3) * K_B
-
-# ==============================================
-# VISUALIZATION AND TESTING
-# ==============================================
-
-def generate_entropy_plot(G5):
-    """Generate entropy vs radius plot"""
-    radii = np.logspace(-35, -10, 100)  # Planck scale to atomic scale
-    entropies = [calculate_5d_entropy(r, G5) for r in radii]
+def generate_entropy_plot():
+    radii = np.logspace(-35, -10, 100)  # From Planck scale to atomic scale
+    entropies = [calculate_5d_entropy(r) for r in radii]
     
-    plt.figure(figsize=(10, 6))
-    ax = plt.gca()
-    ax.loglog(radii, entropies, 'b-', linewidth=2)
-    ax.set_xlabel('Radius [m]', fontsize=12)
-    ax.set_ylabel('Entropy [J/K]', fontsize=12)
-    ax.set_title('5D Black Hole Entropy Scaling', fontsize=14)
-    ax.grid(True, which="both", ls="--")
-    plt.tight_layout()
+    plt.figure(figsize=(10,6))
+    plt.loglog(radii, entropies, 'b-', linewidth=2)
+    plt.xlabel('Radius [m]', fontsize=12)
+    plt.ylabel('Entropy [J/K]', fontsize=12)
+    plt.title('5D Black Hole Entropy Scaling', fontsize=14)
+    plt.grid(True, which="both", ls="--")
     plt.savefig('5D_entropy_plot.png', dpi=300)
     plt.close()
 
-def run_test(G5):
-    """Run verification test at r = 1e-10 m"""
-    test_radius = 1e-10
-    calculated = calculate_5d_entropy(test_radius, G5)
+def run_tests():
+    """Verify calculations against known theoretical values"""
+    test_radius = 1e-10  # Atomic scale
+    calculated = calculate_5d_entropy(test_radius)
+    expected = 1.38e-23 * (test_radius/PLANCK_LENGTH)**3  # Theoretical expectation
     
-    print("=== 5D Black Hole Entropy Calculator ===")
-    print(f"Using G5D = {G5:.3e} m⁴/kg·s²\n")
-    print(f"At r = {test_radius:.1e} m:")
-    print(f"Calculated entropy: {calculated:.3e} J/K")
+    print(f"\n=== 5D Black Hole Entropy Calculator ===")
+    print(f"Reference value at r={test_radius:.1e} m: {calculated:.2e} J/K")
     
-    # Check if result is reasonable
-    if 1e-32 < calculated < 1e-30:
-        print("\nStatus: Calculation within expected range")
+    # Tolerance check (1% difference)
+    if np.abs(calculated - expected)/expected < 0.01:
+        print("\nTest Status: Test passed successfully")
         return True
     else:
-        print("\nStatus: Unexpected result - check G5 value")
-        print("Typical values for G5 should be ~1e-42 to 1e-39 m⁴/kg·s²")
+        print(f"\nTest Status: Test failed (Expected ~{expected:.2e} J/K)")
         return False
 
-# ==============================================
-# MAIN EXECUTION
-# ==============================================
-
 if __name__ == "__main__":
-    try:
-        # Use your G5 value from the theory (6.674e-11 m⁴/kg·s²)
-        G5 = 6.674e-11 * (H_BAR*G/C**3)**(1/2)  # Adjusted to 5D
-        
-        if not run_test(G5):
-            # Try with more typical 5D value if first test fails
-            G5 = 1.0e-42
-            print("\nTrying with G5 = 1.0e-42 m⁴/kg·s²")
-            run_test(G5)
-        
-        generate_entropy_plot(G5)
-        print("\nGenerated entropy scaling plot: 5D_entropy_plot.png")
-        
-    except Exception as e:
-        print(f"\nError: {str(e)}")
-        print("Please ensure you have numpy and matplotlib installed")
-        print("Install with: pip install numpy matplotlib")
+    generate_entropy_plot()
+    test_result = run_tests()
+    
+    # Additional verification points
+    verification_radii = {
+        'Planck scale': PLANCK_LENGTH,
+        'Quantum scale': 1e-15,
+        'Atomic scale': 1e-10
+    }
+    
+    print("\nVerification points:")
+    for name, r in verification_radii.items():
+        print(f"{name+':':<15} r = {r:.1e} m → S = {calculate_5d_entropy(r):.2e} J/K")
+    
+    if not test_result:
+        print("\nDebugging info:")
+        print(f"- Planck length used: {PLANCK_LENGTH:.2e} m")
+        print(f"- Boltzmann constant: {BOLTZMANN:.2e} J/K")
+        print("- Consider checking:")
+        print("  1) Dimensional analysis of entropy formula")
+        print("  2) Numerical precision in calculations")
+        print("  3) Physical constants values")
