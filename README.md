@@ -9,3 +9,13 @@
 - **Zelená šipka**: PID korekce
 
 [Zobrazit plné rozlišení](visuals/cosmic_pid_system.png)
+
+
+
+## Official Publication  
+The full theory is published on Zenodo:  
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15085762.svg)](https://doi.org/10.5281/zenodo.15085762)  
+
+## How to Replicate Results  
+- Install dependencies: `pip install -r requirements.txt`  
+- Run `entropic_gravity_5D.ipynb` to reproduce Figure 2 from the paper.  
