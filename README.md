@@ -1,29 +1,26 @@
-# 5D/6D Teorie entropické gravitace s PID regulací
+# 5D/6D Entropic Gravity with PID Control
 
-## 🎯 Systémový diagram
-![PID Regulace kosmické stability](https://raw.githubusercontent.com/marekzajda/5D_6D-theory-of-entropic-gravity/main/visuals/cosmic_pid_system.png)
+## System Diagram
+![PID Control System](https://raw.githubusercontent.com/marekzajda/5D_6D-theory-of-entropic-gravity/main/visuals/cosmic_pid_system.png)
 
-### 📌 Klíčové komponenty
-- **Modrá oblast**: 5D prostorový bulk
-- **Červené šipky**: Vstup entropických fluktuací
-- **Zelené šipky**: PID korekční signály
-- **Průhledný kruh**: Holografická plocha
+## Key Components
+- **Blue Circle**: 5D bulk space
+- **Red Arrow**: Entropy input (δS)
+- **Green Arrow**: PID correction signal
 
-## 🛠️ Technické detaily
+## How to Update
+1. Edit the diagram:
 ```python
-# Ukázka generování diagramu
+# visuals/diagram_source/cosmic_pid_diagram.py
 import matplotlib.pyplot as plt
-plt.figure(figsize=(10,6))
-plt.title("Kosmická PID regulace")
-plt.savefig("cosmic_pid_system.png")
+plt.savefig("../cosmic_pid_system.png")
+```
+2. Push changes:
+```bash
+git add visuals/cosmic_pid_system.png
+git commit -m "Updated diagram"
+git push
 ```
 
-## 🔍 Ověření funkčnosti
-1. Zkontrolujte, že obrázek existuje:
-   - [Přímý link k PNG](https://raw.githubusercontent.com/marekzajda/5D_6D-theory-of-entropic-gravity/main/visuals/cosmic_pid_system.png)
-2. Pokud se nezobrazuje:
-   ```bash
-   git add visuals/cosmic_pid_system.png
-   git commit -m "Oprava diagramu"
-   git push
-   ```
+## Direct Image Link
+[View raw image](https://raw.githubusercontent.com/marekzajda/5D_6D-theory-of-entropic-gravity/main/visuals/cosmic_pid_system.png)
