@@ -3,6 +3,31 @@ Theory public release:
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15085762.svg)](https://doi.org/10.5281/zenodo.15085762)
 
 ------------------------------------------------------------------------------------------------------------
+
+
+# 5D/6D Teorie entropické gravitace s PID regulací
+
+![Diagram PID regulace](https://raw.githubusercontent.com/marekzajda/5D_6D-theory-of-entropic-gravity/main/visuals/cosmic_pid_system.png)
+
+## 📌 Popis diagramu
+Diagram znázorňuje:
+- **Modrý kruh**: 5D prostor (bulk)
+- **Průhledná oblast**: Holografická plocha
+- **Červená šipka**: Vstup entropie (δS)
+- **Zelená šipka**: PID korekce
+
+## 🛠️ Jak upravit diagram
+1. Upravte soubor `visuals/diagram_source/cosmic_pid_diagram.py`
+2. Spusťte generování:
+   ```bash
+   cd visuals/diagram_source
+   python cosmic_pid_diagram.py
+
+
+
+
+-------------------------------------------------------------------------------------------------------------
+
 # 5D/6D Entropic Gravity Framework with Cosmic PID Control
 
 ## 🌌 Core Innovations
