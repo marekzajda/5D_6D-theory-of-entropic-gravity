@@ -1,4 +1,2 @@
-
 numpy>=1.21
 matplotlib>=3.5
-pytest>=7.0
