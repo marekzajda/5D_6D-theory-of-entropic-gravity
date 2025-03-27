@@ -1,49 +1,47 @@
+"""
+5D Holographic Bound Calculator
+Physical constants from DOI:10.5281/zenodo.15085762
+"""
+
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Physical constants (SI units)
-h = 6.62607015e-34      # Planck constant [J·s]
-hbar = h/(2*np.pi)      # Reduced Planck constant
+# Fundamental constants (CODATA 2018)
+ħ = 1.054571817e-34     # Reduced Planck constant [J·s]
 c = 299792458           # Speed of light [m/s]
 G = 6.67430e-11         # Gravitational constant [m³/kg·s²]
 
-# Calculate 5D Planck length (adjusted scaling)
-L_P5 = (hbar*G/c**3)**0.5  # Standard Planck length
-L_P5_effective = L_P5 * 1e8  # Adjusted for 5D (temporary scaling factor)
+# Derived 5D Planck units
+L_5D = (ħ*G/c**3)**0.5  # Planck length [m]
+M_5D = (ħ*c/G)**0.5     # Planck mass [kg]
+T_5D = (ħ*G/c**5)**0.5  # Planck time [s]
 
-def entropy_5D(radius):
-    """Improved entropy calculation with proper scaling"""
-    A = 2*np.pi**2 * radius**3  # 5D surface area
-    A0 = 4 * L_P5_effective**2   # Scaled reference area
+def entropy_5D(r):
+    """Calculate dimensionless entropy (S/k_B)"""
+    # Surface area of 5D "sphere"
+    A = (8/3)*np.pi**2 * r**3  
     
-    # Main term + corrections (with dimensionless coefficients)
+    # Reference area (4*Planck area)
+    A0 = 4 * L_5D**2
+    
+    # Main term + corrections (α=0.1, β=0.01)
     ratio = A/A0
-    return (ratio**1.5 + 0.1*np.log(abs(ratio)) + 0.01/ratio**0.5)
+    return ratio**1.5 + 0.1*np.log(abs(ratio)) + 0.01*ratio**-0.5
 
-# Simulation parameters (physical range)
-radii = np.logspace(-35, -5, 500)  # From Planck scale to 10μm
+# Physical range from Planck scale to 1cm
+radii = np.logspace(np.log10(L_5D), -2, 500)
 entropies = [entropy_5D(r) for r in radii]
 
-# Plot with physical annotations
-plt.figure(figsize=(12,7))
-plt.loglog(radii, entropies, 'b-', linewidth=2)
-plt.axvline(L_P5, color='r', linestyle='--', label='Planck Length')
-plt.axvline(1e-10, color='g', linestyle=':', label='Test Radius (1Å)')
-
-plt.xlabel('Radius (m)', fontsize=12)
-plt.ylabel('S/k$_B$', fontsize=12)
-plt.title('5D Black Hole Entropy (Improved Scaling)', fontsize=14)
+# Generate plot
+plt.figure(figsize=(10,6))
+plt.loglog(radii/L_5D, entropies)
+plt.xlabel('Radius (in Planck units)', fontsize=12)
+plt.ylabel('Entropy S/k$_B$', fontsize=12)
+plt.title('5D Entropic Gravity', fontsize=14)
 plt.grid(True, which="both", ls="--")
-plt.legend()
-plt.savefig('entropy_simulation.png', dpi=300, bbox_inches='tight')
+plt.savefig('5D_entropy.png', dpi=300, bbox_inches='tight')
 
-# Physical validation
-test_radius = 1e-10
-test_entropy = entropy_5D(test_radius)
-planck_entropy = entropy_5D(L_P5)
-
-print("\n=== Simulation Results ===")
-print(f"5D Planck length: {L_P5_effective:.3e} m (effective)")
-print(f"Entropy at Planck scale: {planck_entropy:.3f} (should be ~1)")
-print(f"Entropy at r={test_radius:.1e}m: {test_entropy:.3e}")
-print("\nPlot saved to 'entropy_simulation.png'")
+# Key results
+print(f"5D Planck length = {L_5D:.3e} m")
+print(f"Entropy at r=1µm: {entropy_5D(1e-6):.3e}")
+print("Plot saved to 5D_entropy.png")
