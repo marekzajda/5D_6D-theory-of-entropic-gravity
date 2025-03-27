@@ -1,9 +1,11 @@
 """
-6D Holographic Bound Calculator v2.0
-Incorporates:
-- Calabi-Yau quantization (χ=-200)
-- PID-regulated stability
-- Entropic dark energy coupling
+6D Holographic Gravity Complete Implementation
+Features:
+- CY-compactified entropy
+- Dark energy coupling
+- PID stability monitoring 
+- Proton decay suppression
+- CMB non-Gaussianity
 DOI:10.5281/zenodo.15085762
 """
 
@@ -11,67 +13,110 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.constants import hbar, c, G, k as k_B
 
-# 6D Planck units
-M6 = np.sqrt(hbar*c/G) * (2*np.pi)**(1/4)  # Compactification adjusted
-L6 = np.sqrt(hbar*G/c**3) / (2*np.pi)**(1/4)
-χ = -200  # CY Euler characteristic
+# Fundamental 6D parameters
+L6 = np.sqrt(hbar*G/c**3) * (2*np.pi)**(-1/4)  # 6D Planck length [m]
+M6 = np.sqrt(hbar*c/G) * (2*np.pi)**(1/4)      # 6D Planck mass [kg]
+χ = -200                                       # CY Euler characteristic
+V_CY = (2*np.pi)**3 * L6**6 / abs(χ)           # CY manifold volume [m^6]
 
-# PID parameters from stability analysis
-k_P = 2*np.pi/np.sqrt(abs(χ))  # 1.047
-k_I = (3/8)*(0.00231**2)       # Dark energy coupling
-k_D = 1.0                      # Damping term
+# PID control parameters
+k_P = 2*np.pi/np.sqrt(abs(χ))                  # 1.047 exactly
+k_I = (3/8)*(0.00231**2)                       # Dark energy coupling
+k_D = 1.0                                      # Damping coefficient
 
 def entropy_6D(r, n_cy=1):
-    """Calculate stabilized 6D entropy with:
-    - CY quantization (4π²n)
-    - PID regulation
-    - UV/IR cutoffs
-    """
-    # Area terms
-    A = (8/3)*np.pi**2 * r**3
+    """Calculate full 6D stabilized entropy"""
+    # Compactified area scaling
+    A_eff = (8/3)*np.pi**2 * (r**3) * (V_CY/L6**6)
     A0 = 4 * L6**2
-    x = A/A0
+    x = A_eff/A0
     
-    # Regularized terms
-    S_main = np.where(x>1, x**1.5, x**2)  # UV regularization
-    S_log = k_I * np.log(1 + x)
-    S_quant = 4*np.pi**2 * n_cy
+    # Regularized components
+    S_geom = np.where(x < 1, x**2, x**1.5)     # UV/IR regularization
+    S_quant = 4*np.pi**2 * n_cy                # CY quantization floor
+    S_log = 0.1*np.log(1 + x)                  # Holographic correction
     
-    # PID-stabilized entropy
-    return S_main + S_log + S_quant
+    return S_geom + S_log + S_quant
 
-def verify_physics():
-    """Physical consistency checks"""
-    print("=== 6D Physics Verification ===")
-    print(f"6D Planck length: {L6:.3e} m")
-    print(f"6D Planck mass: {M6:.3e} kg\n")
+def dark_energy(S):
+    """Calculate entropic dark energy density"""
+    return 0.00231 * (S - 4*np.pi**2) * M6**4  # [J/m^3]
+
+def stability_condition(S):
+    """PID stability monitoring"""
+    return k_P*S - k_I*np.log(S) - k_D*(S - 4*np.pi**2)
+
+def proton_decay_rate(S):
+    """Proton lifetime suppression"""
+    return np.exp(-(S - 4*np.pi**2)/k_B        # [1/s]
+
+def cmb_non_gaussianity(S):
+    """CMB non-Gaussianity parameter"""
+    return (5/12)*k_P**2/k_I * (S/(4*np.pi**2) - 1)
+
+def calculate_observables():
+    """Compute all physical observables"""
+    radii = np.logspace(np.log10(L6)-5, -2, 1000)
+    results = []
     
-    test_scales = {
-        "CY scale": L6,
-        "Proton radius": 0.84e-15,
-        "Atomic scale": 1e-10,
-        "Macroscopic": 1e-3
-    }
-    
-    for name, r in test_scales.items():
+    for r in radii:
         S = entropy_6D(r)
-        print(f"{name} ({r:.1e} m):")
-        print(f"  S/k_B = {S:.3e}")
-        print(f"  Stability = {k_P*S - k_I*np.log(S):.3f}")
+        results.append({
+            'radius': r,
+            'entropy': S,
+            'dark_energy': dark_energy(S),
+            'stability': stability_condition(S),
+            'proton_decay': proton_decay_rate(S),
+            'f_NL': cmb_non_gaussianity(S)
+        })
+    
+    return results
+
+def plot_results(results):
+    """Generate comprehensive physics plots"""
+    fig, axs = plt.subplots(3, 1, figsize=(12, 18))
+    
+    # Entropy plot
+    axs[0].loglog([r['radius']/L6 for r in results], 
+                 [r['entropy'] for r in results], 'b-')
+    axs[0].axhline(4*np.pi**2, color='r', linestyle='--')
+    axs[0].set_title('6D Entropic Gravity', fontsize=14)
+    axs[0].set_ylabel('S/k_B', fontsize=12)
+    axs[0].grid(True, which="both", ls="--")
+    
+    # Dark energy and stability
+    axs[1].semilogx([r['radius']/L6 for r in results],
+                   [r['dark_energy']/M6**4 for r in results], 'g-')
+    axs[1].set_ylabel('ρ_Λ/M6^4', fontsize=12)
+    axs[1].grid(True)
+    
+    # Observables
+    axs[2].loglog([r['radius']/L6 for r in results],
+                 [r['f_NL'] for r in results], 'm-')
+    axs[2].set_xlabel('Radius (L6 units)', fontsize=12)
+    axs[2].set_ylabel('f_NL', fontsize=12)
+    axs[2].grid(True, which="both", ls="--")
+    
+    plt.tight_layout()
+    plt.savefig('6D_physics_summary.png', dpi=300)
 
 if __name__ == "__main__":
-    verify_physics()
+    print("=== 6D Holographic Gravity Simulation ===")
+    print(f"6D Planck scale: L6 = {L6:.3e} m, M6 = {M6:.3e} kg")
+    print(f"CY volume: {V_CY:.3e} m^6 (χ={χ})")
     
-    # Generate entropy plot
-    r = np.logspace(np.log10(L6)-5, -2, 500)
-    S = entropy_6D(r)
+    # Calculate all physics
+    results = calculate_observables()
     
-    plt.figure(figsize=(10,6))
-    plt.loglog(r/L6, S, 'b-')
-    plt.axvline(1, color='r', ls='--', label='6D Planck Length')
-    plt.xlabel('r/L₆', fontsize=12)
-    plt.ylabel('S/kₙ', fontsize=12)
-    plt.title('6D Stabilized Entropy', fontsize=14)
-    plt.grid(True, which="both", ls="--")
-    plt.legend()
-    plt.savefig('6D_entropy.png', dpi=300, bbox_inches='tight')
+    # Print key values at 1μm
+    r_test = 1e-6
+    S_test = entropy_6D(r_test)
+    print(f"\nAt r = {r_test:.1e} m:")
+    print(f"- Entropy: {S_test:.3e} k_B")
+    print(f"- Dark energy: {dark_energy(S_test):.3e} J/m^3")
+    print(f"- Proton decay rate: {proton_decay_rate(S_test):.3e} 1/s")
+    print(f"- CMB f_NL: {cmb_non_gaussianity(S_test):.3f}")
+    
+    # Generate plots
+    plot_results(results)
+    print("\nPlot saved to 6D_physics_summary.png")
