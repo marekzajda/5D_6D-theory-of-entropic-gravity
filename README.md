@@ -1,3 +1,9 @@
+https://zenodo.org/records/15085762 DOI 10.5281/zenodo.15085762
+https://zenodo.org/records/15103675 DOI 10.5281/zenodo.15103675
+https://zenodo.org/records/15103754 DOI 10.5281/zenodo.15103754
+------------------------------------------------------------------------
+
+
 "Do této chvíle jsme jako lidé věděli jak se věci kolem nás projevují a popsali jsme si je matematicky, fyzikálně, chemicky, biologicky apod. Nyní si budeme moci postupně odpovědět na otázku proč takto fungují a projevují se. Smysl nám ale prozatím zůstává záhadou. Možná nám ho někdy řekne nějaký kamarád v restaurantu na konci vesmíru. Stopařův průvodce po galaxii nás teď bude doprovázet."
 
 Marek Zajda
