@@ -1,3 +1,6 @@
+UEST sice nepoužívá PID regulátory v tradičním smyslu, ale její entropické pole se chová jako 'kosmický samoučící se regulátor'."
+Although UEST does not use PID controllers in the traditional sense, its entropic field behaves like a 'cosmic self-learning controller'."
+
 cat << 'EOF' > cosmic_PID_summary.md
 # PID Cosmic Stability Control
 
