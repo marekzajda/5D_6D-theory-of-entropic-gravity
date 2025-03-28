@@ -5,6 +5,15 @@ Marek Zajda
 Věda dokáže vysvětlit proč déšť padá, ale už ne proč nám jeho zvuk připadá melancholický.  
 Možná až v "Restauraci na konci Vesmíru", kde se entropie obrací a čas teče do strany – nám kamarád pravděpodobně s kvantovým číslem podivnosti +1) pošeptá ten poslední smysl.
 
+"Until now, we as humans have understood how things around us behave, describing them mathematically, physically, chemically, biologically, etc. Now, we may gradually uncover why they function and manifest this way. Yet the ultimate meaning remains a mystery to us. Perhaps someday, a friend at the Restaurant at the End of the Universe will tell us. The Hitchhiker's Guide to the Galaxy shall now be our companion." 
+
+*— Marek Zajda*  
+
+"Science can explain why rain falls, but not why the sound of it feels melancholic to us.  
+Perhaps only at the 'Restaurant at the End of the Universe'—where entropy reverses and time flows sideways—will a friend (likely with a strangeness quantum number of +1) whisper that final meaning to us."
+
+"Don't Panic. The meaning is (probably) in the superposition."
+
 -------------------------------------
 # 5D/6D Entropická gravitace s PID regulací
 
