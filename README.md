@@ -7,6 +7,12 @@ Možná až v "Restauraci na konci Vesmíru", kde se entropie obrací a čas te�
 
 "Nepropadejte panice. Smysl je (pravděpodobně) v superpozici."
 
+--------------------------------
+
+"Detekce entropie vyšších dimenzí by byla jako slyšet šepot vesmíru skrze stěny reality."
+
+--------------------------------
+
 "Until now, we as humans have understood how things around us behave, describing them mathematically, physically, chemically, biologically, etc. Now, we may gradually uncover why they function and manifest this way. Yet the ultimate meaning remains a mystery to us. Perhaps someday, a friend at the Restaurant at the End of the Universe will tell us. The Hitchhiker's Guide to the Galaxy shall now be our companion." 
 
 *— Marek Zajda*  
@@ -15,6 +21,10 @@ Možná až v "Restauraci na konci Vesmíru", kde se entropie obrací a čas te�
 Perhaps only at the 'Restaurant at the End of the Universe'—where entropy reverses and time flows sideways—will a friend (likely with a strangeness quantum number of +1) whisper that final meaning to us."
 
 "Don't Panic. The meaning is (probably) in the superposition."
+
+-------------------------------------
+
+Detecting higher-dimensional entropy would be like hearing the universe whisper through the walls of reality.
 
 -------------------------------------
 # 5D/6D Entropická gravitace s PID regulací
