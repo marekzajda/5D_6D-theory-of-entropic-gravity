@@ -1,0 +1,181 @@
+UEST Time Theory: Mathematical Appendix & Python Toolkit
+
+1. Core Time-Entropy Equations
+
+1.1 Entropic Time Derivative
+```math
+d\tau = \frac{dS}{\|\nabla S\|} \quad \text{where } S = -k_B \sum_i p_i \ln p_i
+```
+
+1.2 Time Tensor Components
+Antisymmetric entropy-time tensor in 4D:
+```math
+T^{čas}_{\mu\nu} = \begin{pmatrix}
+0 & \partial_0 S & \partial_0 S & \partial_0 S \\
+-\partial_0 S & 0 & \partial_1 S & \partial_2 S \\
+-\partial_0 S & -\partial_1 S & 0 & \partial_3 S \\
+-\partial_0 S & -\partial_2 S & -\partial_3 S & 0
+\end{pmatrix}
+```
+
+2. Python Simulation Suite
+
+2.1 Entropic Clock Simulator
+```python
+import numpy as np
+from scipy.stats import entropy
+
+def entropic_time(pdf, dx=1e-3):
+    """Calculates time flow from probability distribution"""
+    S = entropy(pdf) * 1.38e-23  # Boltzmann constant
+    grad_S = np.gradient(pdf, dx)
+    return dx / np.linalg.norm(grad_S)
+
+Example: Hourglass sand distribution
+sand_pdf = np.array([0.1, 0.3, 0.4, 0.2])  # Bottom-heavy distribution
+print(f"Time flow rate: {entropic_time(sand_pdf):.2e} s/bit")
+```
+
+2.2 Quantum Foam Time Noise
+```python
+import matplotlib.pyplot as plt
+
+def quantum_foam_noise(duration=1.0, sample_rate=44100):
+    """Generates Planck-scale time fluctuations"""
+    t = np.linspace(0, duration, int(sample_rate * duration))
+    planck_freq = 1.85e43  # Planck frequency (Hz)
+    noise = np.random.normal(scale=np.sqrt(planck_freq * duration))
+    plt.plot(t, noise)
+    plt.title("Quantum Foam Time Noise")
+    plt.xlabel("Apparent Time (s)")
+    plt.ylabel("Entropic Fluctuation (k_B)")
+    plt.show()
+
+quantum_foam_noise()
+```
+
+3. Advanced Mathematical Constructs
+
+3.1 Holographic Time Projection
+5D→4D time mapping:
+```math
+\tau_{4D} = \int_{CY_3} \sqrt{\det(g_{5D})} \, d^3y \quad \text{where } g_{5D} = e^{-\beta S}g_{4D}
+```
+
+3.2 Thermodynamic Time Dilation
+```python
+def time_dilation(T, S_ref=1.7*k_B):
+    """Calculates entropic time dilation"""
+    return np.sqrt(S_ref / (k_B * T))
+
+For human body temperature (310K):
+print(f"Biological time dilation: {time_dilation(310):.4f}x")
+```
+
+4. Complete Theory Table
+
+| Phenomenon          | Math Expression                  | Python Function           |
+|---------------------|----------------------------------|---------------------------|
+| Hourglass flow      | dt/dS = 1/‖∇S‖                  | `entropic_time()`         |
+| Quantum fluctuations| ⟨δτ²⟩ = ℏG/c⁵                   | `quantum_foam_noise()`    |
+| Biological aging    | τ = ∫(dS/k_BT)                  | `time_dilation()`         |
+
+5. Installation & Usage
+
+```bash
+git clone https://github.com/marekzajda/UEST-time-toolkit.git
+cd UEST-time-toolkit
+pip install -r requirements.txt  # numpy, scipy, matplotlib
+
+# Run all tests
+python -m pytest tests/
+```
+
+
+
+
+
+
+
+
+
+----------------------
+Čas v UEST: Analogie / Time in UEST: Analogies**  
+*Česky (vlevo) | English (right)*  
+
+## **1. Entropické Hodiny / Entropic Clock**  
+| **Česky** | **English** |  
+|-----------|------------|  
+| *"Čas je jako písek v hodinách – nikdy neteče zpět, protože entropie písku roste."* | *"Time is like hourglass sand – it never flows back because the sand's entropy always increases."* |  
+**Fyzika**:  
+```math  
+\frac{dt}{dS} = \frac{1}{\|\nabla S\|} \quad \text{(Časová derivace entropie)}  
+```  
+
+---
+
+## **2. Vařící se Káva / Boiling Coffee**  
+| **Česky** | **English** |  
+|-----------|------------|  
+| *"Šum bublin v kávě je jako kvantová pěna času – každé prasknutí je elementární 'tiknutí'."* | *"The noise of coffee bubbles is like quantum foam of time – each pop is an elementary 'tick'."* |  
+**Kódová simulace**:  
+```python  
+def časový_šum(samples=44100):  # Time noise simulation  
+    return np.random.randn(samples) * np.sqrt(entropie)  
+```  
+
+---
+
+## **3. Rozbité Vejce / Broken Egg**  
+| **Česky** | **English** |  
+|-----------|------------|  
+| *"Rozbité vejce se neskládá zpět – entropie pamatuje směr času."* | *"A broken egg never reassembles – entropy remembers time's direction."* |  
+**Rovnice nevratnosti**:  
+```math  
+\det(T^{čas}_{\mu\nu}) < 0 \quad \text{(Antisymetrie tenzoru)}  
+```  
+
+---
+
+## **4. Zvuková Stopa / Soundtrack**  
+| **Česky** | **English** |  
+|-----------|------------|  
+| *"Vesmír je jako nahrávka, kde entropie přidává šum – čas je její přehrávání."* | *"The universe is like a recording where entropy adds noise – time is its playback."* |  
+**Spektrum času**:  
+```math  
+P(\omega) \propto \frac{\omega^3}{e^{\hbar\omega/k_BT}-1}  
+```  
+
+---
+
+## **5. Bublifuk / Bubble Blower**  
+| **Česky** | **English** |  
+|-----------|------------|  
+| *"Každá prasklá bublina je jako okamžik v kvantové pěně časoprostoru."* | *"Every popped bubble is like a moment in spacetime's quantum foam."* |  
+**Frekvence**:  
+```math  
+f_{Planck} = \frac{1}{t_{Planck}} \approx 10^{43}\,\text{Hz}  
+```  
+
+---
+
+## **6. Zimní Spánek / Winter Hibernation**  
+| **Česky** | **English** |  
+|-----------|------------|  
+| *"Pocit zpomaleného času v zimě? Nižší teplota → menší entropický tok."* | *"Feeling of slow time in winter? Lower temperature → reduced entropy flow."* |  
+**Termodynamika**:  
+```math  
+\Delta t \sim \frac{\Delta Q}{T} \quad \text{(Entropická časová dilatace)}  
+```  
+
+---
+
+### **Shrnutí / Summary**  
+| **Koncept** | **Česky** | **English** |  
+|-------------|-----------|------------|  
+| **Základ** | Čas plyne ve směru růstu entropie | Time flows toward increasing entropy |  
+| **Matematika** | `dτ = dS/‖∇S‖` | Entropic time derivative |  
+| **Experiment** | Rozpouštění cukru v čaji | Sugar dissolving in tea |  
+
+> *"Čas není tikot hodin, ale šumění entropie v hyperprostoru."*  
+> *"Time isn’t clock ticks, but the whisper of entropy in hyperspace."*  
