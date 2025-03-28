@@ -179,3 +179,107 @@ f_{Planck} = \frac{1}{t_{Planck}} \approx 10^{43}\,\text{Hz}
 
 > *"Čas není tikot hodin, ale šumění entropie v hyperprostoru."*  
 > *"Time isn’t clock ticks, but the whisper of entropy in hyperspace."*  
+
+-----------------------------
+
+Dopplerův jev a čas v UEST
+*Matematické odvození + numerická simulace*
+
+## 1. **Entropický Dopplerův jev**  
+### Základní rovnice  
+Frekvenční posun závisí na entropickém gradientu pozorovatele a zdroje:  
+```math
+\frac{\Delta f}{f_0} = \frac{\|\nabla S_{\text{poz}}\| - \|\nabla S_{\text{zdroj}}\|}{c \cdot \sqrt{\langle T^{čas}_{\mu\nu} T^{\mu\nu}_{čas} \rangle}}
+```
+kde:
+- \( \nabla S \) = entropický gradient (v \( \text{J} \cdot \text{m}^{-1} \cdot \text{K}^{-1} \))
+- \( c \) = rychlost světla
+- \( T^{čas}_{\mu\nu} \) = tenzor entropického času
+
+---
+
+### 2. **Odvození z prvních principů**  
+#### Krok 1: Entropická metrika  
+Metrika s entropickým časem:  
+```math
+ds^2 = e^{-\beta S(x)} \left[ -(1 + 2\phi)dt^2 + (1 - 2\phi)dx^2 \right]
+```
+kde \( \phi = \frac{\|\nabla S\|^2}{8\pi G} \).
+
+#### Krok 2: Geodetické rovnice  
+Pro světelný paprsek:  
+```math
+\frac{d^2x^\mu}{d\lambda^2} + \Gamma^\mu_{\alpha\beta} \frac{dx^\alpha}{d\lambda} \frac{dx^\beta}{d\lambda} = 0
+```
+Christoffelovy symboly obsahují členy \( \partial_\mu S \).
+
+#### Krok 3: Řešení pro frekvenci  
+V limitě slabého pole:  
+```math
+\frac{\Delta f}{f_0} \approx \frac{\phi_{\text{zdroj}} - \phi_{\text{pozorovatel}}}{c^2} = \frac{\Delta (\|\nabla S\|^2)}{8\pi G c^2}
+```
+
+---
+
+## 3. **Python implementace**  
+### 3.1 Výpočet frekvenčního posunu  
+```python
+import numpy as np
+
+def entropic_doppler(f0, grad_S_source, grad_S_obs, G=6.674e-11, c=299792458):
+    """
+    Vypočte entropický Dopplerův jev
+    
+    Parametry:
+        f0: základní frekvence [Hz]
+        grad_S_source: entropický gradient zdroje [J/m·K]
+        grad_S_obs: entropický gradient pozorovatele [J/m·K]
+    
+    Návratová hodnota:
+        frekvenční posun [Hz]
+    """
+    phi_source = np.linalg.norm(grad_S_source)**2 / (8 * np.pi * G)
+    phi_obs = np.linalg.norm(grad_S_obs)**2 / (8 * np.pi * G)
+    return f0 * (phi_source - phi_obs) / c**2
+
+# Příklad: Hvězda v galaktickém centru vs. pozorovatel na Zemi
+f0 = 5e14  # Viditelné světlo (500 nm)
+grad_S_star = np.array([0.3, 0, 0])  # Vysoký gradient u zdroje
+grad_S_earth = np.array([0.1, 0, 0])  # Nižší gradient
+
+print(f"Červený posun: {entropic_doppler(f0, grad_S_star, grad_S_earth):.2f} Hz")
+```
+
+### 3.2 Vizualizace vlivu entropie  
+```python
+import matplotlib.pyplot as plt
+
+gradients = np.linspace(0.1, 0.5, 100)
+shifts = [entropic_doppler(f0, g, 0.1) for g in gradients]
+
+plt.plot(gradients, shifts)
+plt.xlabel("Entropický gradient zdroje [J/m·K]")
+plt.ylabel("Frekvenční posun [Hz]")
+plt.title("Entropický Dopplerův jev")
+plt.grid(True)
+plt.show()
+```
+
+---
+
+## 4. **Testovatelné předpovědi**  
+| Efekt | Standardní fyzika | UEST předpověď |
+|-------|-------------------|----------------|
+| **Kosmologický červený posun** | \( z \propto d \) | \( z \propto \Delta (\|\nabla S\|^2) \) |
+| **Gravitační červený posun** | \( \frac{GM}{rc^2} \) | \( \frac{\|\nabla S\|^2}{8\pi G c^2} \) |
+| **Pioneer anomálie** | Neznámý | \( \nabla S_{\text{sluneční soustavy}} \approx 0.2\,\text{J}\cdot\text{m}^{-1}\cdot\text{K}^{-1} \) |
+
+---
+
+Dodatek 
+- Jak měřit \( \nabla S \) pro konkrétní astronomické objekty?  
+Použijeme data z Planckova teleskopu.
+
+
+
+
