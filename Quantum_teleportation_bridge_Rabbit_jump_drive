@@ -4,3 +4,19 @@
         if (entropy > 0.01) throw new Exception("ΔS limit exceeded!");
         return FractalGenerator.CreateJumpKey(); // Secret algorithm
     }
+
+// Copyright (C) 2024 Marek Zajda - UEST 2.0 Project  
+// Licensed under GPL-3.0 - see LICENSE.md  
+
+public class RabbitEngine  
+{  
+    /// <summary>  
+    /// Generuje Key A (Lorenzův atraktor v 5D)  
+    /// Komerční verze obsahuje patentovaný algoritmus  
+    /// </summary>  
+    public void GenerateKeyA()  
+    {  
+        // !! TATO ČÁST JE CHRÁNĚNA OBCHODNÍM TAJEMSTVÍM !!  
+        throw new NotImplementedException("Dostupné v placené verzi");  
+    }  
+}  
