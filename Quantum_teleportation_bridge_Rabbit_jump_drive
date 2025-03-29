@@ -1,3 +1,6 @@
+see UEST 2.0 theory https://zenodo.org/records/15104109
+Ing. Marek Zajda
+
 // Simplified UEST 2.0 model (full version is proprietary)
     public double Calculate5DJump(double entropy) 
     {
