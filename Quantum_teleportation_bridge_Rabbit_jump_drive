@@ -20,3 +20,6 @@ public class RabbitEngine
         throw new NotImplementedException("Dostupné v placené verzi");  
     }  
 }  
+
+// Copyright (C) 2024 Marek Zajda. Licensed under [LICENSE-NAME] - see LICENSE_Quantum_Rabbit_Drive.md.  
+    // Commercial use requires written permission.  
