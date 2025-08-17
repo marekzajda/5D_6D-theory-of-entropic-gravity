@@ -1,0 +1,26 @@
+C:\Users\Marek Zajda\Desktop\UEST teorie\QUEST 2.0\Riemann hypothesis all>python verify_multi_backend_with_improved_B.py
+Running GPN falsification with BACKEND='rs' at t~1,000,000,000.00
+Expected zeros in detection range ≈ 10821
+Detected 10815 zeros in [999998200.0, 1000001800.0]
+a=3, L=1 | core max = 1.109e-01
+a=3, L=0.5 | core max = 1.109e-01
+a=3, L=0.333333 | core max = 1.109e-01
+a=3, L=0.25 | core max = 1.109e-01
+a=2, L=1 | core max = 2.194e-01
+a=2, L=0.5 | core max = 2.194e-01
+a=2, L=0.333333 | core max = 2.194e-01
+a=2, L=0.25 | core max = 2.194e-01
+a=1, L=1 | core max = 6.406e-01
+a=1, L=0.5 | core max = 6.406e-01
+a=1, L=0.333333 | core max = 6.406e-01
+a=1, L=0.25 | core max = 6.406e-01
+a=0.5, L=1 | core max = 1.213e+00
+a=0.5, L=0.5 | core max = 1.213e+00
+a=0.5, L=0.333333 | core max = 1.213e+00
+a=0.5, L=0.25 | core max = 1.213e+00
+
+Residuals in core (max over L):
+  a=3 | max_core=1.109e-01  →  RESIDUAL>eps
+  a=2 | max_core=2.194e-01  →  RESIDUAL>eps
+  a=1 | max_core=6.406e-01  →  RESIDUAL>eps
+  a=0.5 | max_core=1.213e+00  →  RESIDUAL>eps

@@ -1,0 +1,28 @@
+
+# OUTPUT:
+# C:\Users\Marek Zajda\Desktop\UEST teorie\QUEST 2.0\Riemann hypothesis all>python ultra_high_rs_test_v5.py
+Running Poisson smoothing test at t ~ 1,000,000,000.00 ...
+Expected zeros in detection range ≈ 12023
+Detected 12015 zeros in [999998000.0, 1000002000.0]
+a=3, L=1 | core max = 4.975e-02, E_L2=2.084e+01, E_H12=7.974e+00
+a=3, L=0.5 | core max = 6.439e-02, E_L2=2.084e+01, E_H12=7.974e+00
+a=3, L=0.333333 | core max = 6.439e-02, E_L2=2.084e+01, E_H12=7.974e+00
+a=3, L=0.25 | core max = 6.439e-02, E_L2=2.084e+01, E_H12=7.974e+00
+a=2, L=1 | core max = 1.130e-01, E_L2=6.725e+01, E_H12=5.743e+01
+a=2, L=0.5 | core max = 1.559e-01, E_L2=6.725e+01, E_H12=5.743e+01
+a=2, L=0.333333 | core max = 1.559e-01, E_L2=6.725e+01, E_H12=5.743e+01
+a=2, L=0.25 | core max = 1.559e-01, E_L2=6.725e+01, E_H12=5.743e+01
+a=1, L=1 | core max = 2.861e-01, E_L2=1.044e+03, E_H12=2.264e+03
+a=1, L=0.5 | core max = 6.474e-01, E_L2=1.044e+03, E_H12=2.264e+03
+a=1, L=0.333333 | core max = 6.474e-01, E_L2=1.044e+03, E_H12=2.264e+03
+a=1, L=0.25 | core max = 6.474e-01, E_L2=1.044e+03, E_H12=2.264e+03
+a=0.5, L=1 | core max = 5.123e-01, E_L2=1.977e+04, E_H12=7.610e+04
+a=0.5, L=0.5 | core max = 1.767e+00, E_L2=1.977e+04, E_H12=7.610e+04
+a=0.5, L=0.333333 | core max = 1.767e+00, E_L2=1.977e+04, E_H12=7.610e+04
+a=0.5, L=0.25 | core max = 1.767e+00, E_L2=1.977e+04, E_H12=7.610e+04
+
+Residuals in core (max over L) and energies after projection:
+  a=3 | max_core=6.439e-02 (RESIDUAL>eps),  E_L2=2.084e+01,  E_H12=7.974e+00
+  a=2 | max_core=1.559e-01 (RESIDUAL>eps),  E_L2=6.725e+01,  E_H12=5.743e+01
+  a=1 | max_core=6.474e-01 (RESIDUAL>eps),  E_L2=1.044e+03,  E_H12=2.264e+03
+  a=0.5 | max_core=1.767e+00 (RESIDUAL>eps),  E_L2=1.977e+04,  E_H12=7.610e+04
