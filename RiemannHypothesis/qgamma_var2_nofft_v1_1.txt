@@ -1,0 +1,25 @@
+C:\Users\Marek Zajda\Desktop\UEST teorie\Riemannova hypotéza python>python qgamma_var2_nofft_v1_1.py
+Step 3 PATCHED: Q_gamma domination (Var2, CCC-consistent)
+N=4, Nx=262144, tol_tail=1e-14
+Kernel stabilized at x=0, sqrt-energy normalization enabled
+
+--- delta=0.05 ---
+ eps=0.1  |Q|=1.935920e+01 IW1=6.146749e+10 C1=7.808445e-05 (L=33.01, 0.13s)
+ eps=0.3  |Q|=7.004512e+00 IW1=3.934173e+06 C1=3.531434e-03 (L=33.01, 0.14s)
+ eps=1.0  |Q|=1.347187e+00 IW1=5.890566e+02 C1=5.550720e-02 (L=33.01, 0.14s)
+
+--- delta=0.2 ---
+ eps=0.1  |Q|=3.813823e+00 IW1=5.761923e+03 C1=5.024314e-02 (L=16.50, 0.12s)
+ eps=0.3  |Q|=3.099307e+00 IW1=1.469069e+03 C1=8.086182e-02 (L=16.50, 0.14s)
+ eps=1.0  |Q|=1.182757e+00 IW1=3.526460e+01 C1=1.991709e-01 (L=16.50, 0.13s)
+
+--- delta=1.0 ---
+ eps=0.1  |Q|=1.100220e+00 IW1=2.939627e+01 C1=2.029239e-01 (L=7.38, 0.13s)
+ eps=0.3  |Q|=1.058082e+00 IW1=2.731884e+01 C1=2.024363e-01 (L=7.38, 0.13s)
+ eps=1.0  |Q|=7.393858e-01 IW1=1.649009e+01 C1=1.820789e-01 (L=7.38, 0.13s)
+
+=== UNIFORM SUMMARY ===
+max C1 = 2.029239e-01 at eps,delta=(0.1,1.0)
+Total time: 1.20s
+
+Saved: qgamma_var2_nofft_v1_1_PATCHED.csv
