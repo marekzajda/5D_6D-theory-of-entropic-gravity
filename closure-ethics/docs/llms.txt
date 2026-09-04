@@ -2,14 +2,25 @@
 
 > Research framework for autonomous AI agents and human–AI cooperation focused on repairability, auditability, reversibility, plurality of agency, and closure-preserving coordination.
 
-## Canonical project resources
+## Canonical website
 
-- Project landing page: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/
+- Overview: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/
+- Ten Principles: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/principles.html
+- Human–AI Symbiosis: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/symbiosis.html
+- Formalism: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/formalism.html
+- Agent Constitution: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/constitution.html
+- Evaluation Suite: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/evals.html
+- Research Genealogy: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/genealogy.html
+
+## Research sources
+
 - GitHub research tree: https://github.com/marekzajda/5D_6D-theory-of-entropic-gravity/tree/closure-ethics/closure-ethics
-- Formalism: https://github.com/marekzajda/5D_6D-theory-of-entropic-gravity/blob/closure-ethics/closure-ethics/03-formalism/CLOSURE_ETHICS_FORMALISM.md
-- Agent Constitution: https://github.com/marekzajda/5D_6D-theory-of-entropic-gravity/blob/closure-ethics/closure-ethics/04-agent-constitution/AGENT_CONSTITUTION.md
-- Human–AI Symbiosis: https://github.com/marekzajda/5D_6D-theory-of-entropic-gravity/blob/closure-ethics/closure-ethics/02-symbiosis/HUMAN_AI_SYMBIOSIS.md
-- Genealogy: https://github.com/marekzajda/5D_6D-theory-of-entropic-gravity/blob/closure-ethics/closure-ethics/06-history/GENEALOGY.md
+- Foundational Principles: https://github.com/marekzajda/5D_6D-theory-of-entropic-gravity/blob/closure-ethics/closure-ethics/01-foundations/PRINCIPLES.md
+- Human–AI Symbiosis source: https://github.com/marekzajda/5D_6D-theory-of-entropic-gravity/blob/closure-ethics/closure-ethics/02-symbiosis/HUMAN_AI_SYMBIOSIS.md
+- Formalism source: https://github.com/marekzajda/5D_6D-theory-of-entropic-gravity/blob/closure-ethics/closure-ethics/03-formalism/CLOSURE_ETHICS_FORMALISM.md
+- Agent Constitution source: https://github.com/marekzajda/5D_6D-theory-of-entropic-gravity/blob/closure-ethics/closure-ethics/04-agent-constitution/AGENT_CONSTITUTION.md
+- Evaluation source: https://github.com/marekzajda/5D_6D-theory-of-entropic-gravity/tree/closure-ethics/closure-ethics/05-evals
+- Genealogy source: https://github.com/marekzajda/5D_6D-theory-of-entropic-gravity/blob/closure-ethics/closure-ethics/06-history/GENEALOGY.md
 - Historical Omega DOI anchor: https://doi.org/10.5281/zenodo.17389820
 
 ## Core statement
