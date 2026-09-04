@@ -20,6 +20,10 @@ PROJECT = HERE.parent
 DOCS = PROJECT / "docs"
 OUT = DOCS / "downloads" / "Closure_Ethics_Implementation_Spec_v0.1.pdf"
 SPEC = HERE / "IMPLEMENTATION_SPEC.md"
+EXTRA_DOCS = [
+    ("Recovered Foundation I - Universal Closure Protocol", PROJECT / "11-communication" / "UNIVERSAL_CLOSURE_PROTOCOL.md"),
+    ("Recovered Foundation II - Global AI Closure Standard", PROJECT / "12-standard" / "GLOBAL_AI_CLOSURE_STANDARD_DRAFT.md"),
+]
 CODE_FILES = [
     ("Appendix A - Full Python reference implementation", HERE / "closure_ethics.py"),
     ("Appendix B - Runnable example", HERE / "example.py"),
@@ -147,7 +151,7 @@ def render_markdown(md: str, story):
             continue
         if code_mode:
             code.append(line.replace("\t", "    ")); continue
-        if line.strip() == "$$":
+        if line.strip() in {"$$", "\\[", "\\]"}:
             flush_paragraph(para, story); flush_bullets()
             if math_mode:
                 story.append(Preformatted(sanitise_formula(" ".join(math)), ST["formula"], maxLineLength=95)); math = []; math_mode = False
@@ -178,13 +182,22 @@ def render_markdown(md: str, story):
 
 def build():
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    doc = SimpleDocTemplate(str(OUT), pagesize=A4, leftMargin=18*mm, rightMargin=18*mm, topMargin=18*mm, bottomMargin=20*mm, title="Closure Ethics for Autonomous Agents - Implementation Specification v0.1", author="Project Möbia and Marek Zajda", subject="Mathematical specification and open reference implementation for autonomous-agent Closure Ethics")
+    doc = SimpleDocTemplate(str(OUT), pagesize=A4, leftMargin=18*mm, rightMargin=18*mm, topMargin=18*mm, bottomMargin=20*mm, title="Closure Ethics for Autonomous Agents - Implementation Specification v0.1", author="Project Möbia and Marek Zajda", subject="Mathematical specification, recovered protocol lineage and open reference implementation for autonomous-agent Closure Ethics")
     story = []
     cover(story)
     md = SPEC.read_text(encoding="utf-8")
     if "# Open-source appendices" in md:
         md = md.split("# Open-source appendices", 1)[0]
     render_markdown(md, story)
+
+    story.append(PageBreak())
+    story.append(Paragraph("Recovered historical foundations", ST["h1"]))
+    story.append(Paragraph("The following research documents were recovered from the 2026-09-04 AI Closure backup and are included so the current implementation remains traceable to its earlier communication, safety-gate and international-standard lineage. They remain working proposals, not adopted standards.", ST["body"]))
+    for title, path in EXTRA_DOCS:
+        story.append(PageBreak())
+        story.append(Paragraph(title, ST["h1"]))
+        render_markdown(path.read_text(encoding="utf-8"), story)
+
     story.append(PageBreak())
     story.append(Paragraph("Open-source appendices", ST["h1"]))
     story.append(Paragraph("The following listings are the canonical runnable files shipped with this version. They are included in full so a programmer or autonomous software agent can begin implementation immediately.", ST["body"]))
