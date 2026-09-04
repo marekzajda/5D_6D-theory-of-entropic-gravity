@@ -38,6 +38,7 @@
 - Historical scaling principle: impact increases -> autonomy budget decreases and verification strength increases.
 - Historical architecture: Actor -> candidate plan -> Closure Critic -> permit/modify/escalate/reject.
 - Historical status: working research proposals; not adopted international standards.
+- Historical recovery integrated into the public project build on 2026-09-04.
 
 ## Universal Closure Protocol
 
