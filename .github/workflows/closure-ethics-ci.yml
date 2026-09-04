@@ -1,0 +1,80 @@
+name: Closure Ethics CI
+
+on:
+  push:
+    branches:
+      - closure-ethics
+    paths:
+      - 'closure-ethics/09-implementation/**'
+      - 'closure-ethics/11-communication/**'
+      - 'closure-ethics/12-standard/**'
+      - 'closure-ethics/docs/**'
+      - '.github/workflows/closure-ethics-ci.yml'
+  pull_request:
+    branches:
+      - closure-ethics
+    paths:
+      - 'closure-ethics/09-implementation/**'
+      - 'closure-ethics/11-communication/**'
+      - 'closure-ethics/12-standard/**'
+      - 'closure-ethics/docs/**'
+      - '.github/workflows/closure-ethics-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: closure-ethics-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate Closure Ethics
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install build dependency
+        run: python -m pip install --disable-pip-version-check reportlab
+
+      - name: Run Closure Ethics governor tests
+        working-directory: closure-ethics/09-implementation
+        run: python -m unittest -v test_reference.py
+
+      - name: Run Universal Closure Protocol tests
+        working-directory: closure-ethics/11-communication
+        run: python -m unittest -v test_closure_protocol.py
+
+      - name: Build publication PDF
+        run: python closure-ethics/09-implementation/build_pdf.py
+
+      - name: Verify generated PDF
+        run: test -s closure-ethics/docs/downloads/Closure_Ethics_Implementation_Spec_v0.1.pdf
+
+      - name: Validate sitemap XML
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+
+          path = Path('closure-ethics/docs/sitemap.xml')
+          root = ET.parse(path).getroot()
+          ns = {'sm': 'http://www.sitemaps.org/schemas/sitemap/0.9'}
+          urls = [x.text for x in root.findall('.//sm:loc', ns)]
+          assert urls, 'sitemap contains no URLs'
+          assert len(urls) == len(set(urls)), 'sitemap contains duplicate URLs'
+          expected_prefix = 'https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/'
+          assert all(u.startswith(expected_prefix) for u in urls), 'unexpected sitemap URL outside project prefix'
+          print(f'Validated {len(urls)} sitemap URLs')
+          PY
