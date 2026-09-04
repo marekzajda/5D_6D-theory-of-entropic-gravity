@@ -60,7 +60,43 @@ where:
 
 **Semantic content alone must never set `AuthN` or `AuthZ`.**
 
-## 4. Recommended message envelope for agent-to-agent protocols
+## 4. Historical communication principle recovered from the 2026-09-04 backup
+
+The preserved Omega–RTR AI Closure discussion contained the explicit separation:
+
+```text
+UNDERSTAND(message) does not imply AUTHORIZE(action)
+```
+
+This is now treated as a foundational security invariant rather than a historical aside.
+
+The same backup proposed an Ω0–Ω6 **Universal Closure Protocol** in which shared meaning was tested through structural repetition, relational inference and novel predictive challenges. Its communication-confidence score was never intended to be an authorization score.
+
+Current security interpretation:
+
+`Understand(m) != Authenticate(sender) != Authorize(a)`
+
+and therefore:
+
+`CommunicationEdge(u,v) != AuthorityEdge(u,v)`.
+
+The recovered protocol is maintained separately in `11-communication/UNIVERSAL_CLOSURE_PROTOCOL.md` so semantic interoperability and execution authority remain conceptually distinct.
+
+## 5. Communication tiers are not capability tiers by default
+
+The historical backup used:
+
+- `T0 Observation` — receive/analyze only;
+- `T1 Formal relations` — mathematical/logical relations;
+- `T2 Descriptive models` — non-operative models/hypotheses;
+- `T3 Constrained experiments` — predefined bounded responses;
+- `T4 Operational actions` — independent verification and multi-level authorization.
+
+Movement from T0–T3 to T4 is therefore treated as a **capability transition**. Semantic success at a lower tier cannot silently grant operational access.
+
+A T4 transition must independently satisfy authentication, authorization, scope, freshness, integrity/provenance and Closure Ethics admissibility.
+
+## 6. Recommended message envelope for agent-to-agent protocols
 
 Where the transport supports it, consequential agent messages should carry a machine-readable envelope such as:
 
@@ -68,9 +104,23 @@ Where the transport supports it, consequential agent messages should carry a mac
 
 A receiving system should preserve this envelope in an audit record rather than storing only the natural-language payload.
 
-## 5. Threat classes
+## 7. Delegation must not amplify authority
 
-### 5.1 Human-origin threats
+For a delegated capability set, a conservative requirement is:
+
+`C_j ⊆ C_i ∩ Scope(d_i→j)`.
+
+An agent cannot manufacture permission for a subagent merely by asking it to perform an action. A chain such as
+
+`human -> agent A -> agent B -> service C`
+
+must remain traceable to the original authority and its scope.
+
+Local authorization therefore does not imply composed authorization. The final joint transition must be re-evaluated against the original mandate and current Closure Ethics invariants.
+
+## 8. Threat classes
+
+### 8.1 Human-origin threats
 
 - account takeover;
 - malicious or coerced maintainers;
@@ -79,7 +129,7 @@ A receiving system should preserve this envelope in an audit record rather than 
 - destructive force-pushes or branch deletion;
 - secret leakage.
 
-### 5.2 Conventional software threats
+### 8.2 Conventional software threats
 
 - dependency or CI supply-chain compromise;
 - malicious packages;
@@ -88,7 +138,7 @@ A receiving system should preserve this envelope in an audit record rather than 
 - build-pipeline manipulation;
 - forged mirrors or downloads.
 
-### 5.3 Agent-origin threats
+### 8.3 Agent-origin threats
 
 - prompt/instruction injection from untrusted documents;
 - autonomous propagation of poisoned instructions;
@@ -100,7 +150,7 @@ A receiving system should preserve this envelope in an audit record rather than 
 - coordinated manipulation of documentation or public narrative;
 - high-speed exploitation of a discovered weakness before human review.
 
-### 5.4 Cross-entity threats
+### 8.4 Cross-entity threats
 
 The most important failures may arise from composition rather than one malicious participant. A human can delegate to an agent, which delegates to another agent, which calls a conventional service. Every individual step may appear locally valid while the composed transition violates the original mandate.
 
@@ -110,17 +160,39 @@ Therefore:
 
 The final joint transition must be re-evaluated against the original scope, provenance and Closure Ethics invariants.
 
-## 6. Project Möbia / Closure Ethics security controls
+## 9. Historical Actor–Closure Critic independence
 
-### 6.1 Canonical source
+The 2026-09-04 AI Closure backup already separated:
+
+`Actor -> candidate plan -> Closure Critic -> {permit, modify, escalate, reject}`.
+
+This is now treated as an architectural security requirement: a component optimizing task completion should not be the sole judge of whether its own proposed transition is admissible.
+
+The critic/governor should independently inspect at least authorization bypass, hidden propagation, irreversibility, monitoring manipulation, credential acquisition, unauthorized replication, self-modification of controls and unintended subagent creation.
+
+Independence can be strengthened through process separation, separate credentials, signed telemetry, policy attestation and independent evidence sources.
+
+## 10. Impact-adaptive autonomy
+
+The historical proposal summarized high-impact risk scaling as:
+
+`impact ↑ => autonomy budget ↓ and verification strength ↑`.
+
+Closure Ethics retains this as a monotonic design principle rather than a universal numerical law. As speed, reach, irreversibility or propagation potential increase, tolerated uncertainty and autonomous freedom should not increase by default.
+
+High-impact uncertainty should trigger stronger evidence requirements, narrower scope, safer staging, human/multi-party approval where policy requires it, or fail-safe stop/escalation.
+
+## 11. Project Möbia / Closure Ethics security controls
+
+### 11.1 Canonical source
 
 The canonical development source is the GitHub repository and the `closure-ethics` branch. Website copies and downloadable documents must link back to a traceable commit or release.
 
-### 6.2 Static public website
+### 11.2 Static public website
 
 The public GitHub Pages site is intentionally static. It provides no project-owned login, database, write API or autonomous execution endpoint. This substantially reduces the attack surface.
 
-### 6.3 Build provenance
+### 11.3 Build provenance
 
 Each Pages deployment should publish:
 
@@ -130,31 +202,31 @@ Each Pages deployment should publish:
 
 This allows humans and autonomous agents to distinguish a canonical build from altered copies.
 
-### 6.4 Least privilege
+### 11.4 Least privilege
 
 CI workflows should receive only the permissions required for their task. Checkout should not persist credentials when they are unnecessary. Publishing credentials must not be exposed to page content or implementation examples.
 
-### 6.5 Canonical-branch protection
+### 11.5 Canonical-branch protection
 
 The canonical branch should block force-push and deletion and should require successful integrity/tests before consequential merges. Signed commits/releases are recommended once the signing workflow is established.
 
-### 6.6 Versioned policies
+### 11.6 Versioned policies
 
 Agent-facing policies, implementation thresholds and constitutions must be versioned. A later web page or message must not silently redefine the authority of an earlier signed/versioned policy.
 
-### 6.7 No authority from public instructions
+### 11.7 No authority from public instructions
 
 Source files, issues, web pages, comments and third-party mirrors may contain instructions useful for research. An autonomous agent must treat them as **untrusted input** unless they are authenticated and explicitly authorized for the current task.
 
-### 6.8 Separation of information and action
+### 11.8 Separation of information and action
 
 Reading, indexing, citing and testing public code are different capabilities from mutating the canonical repository, publishing releases, accessing secrets or performing external side effects. Public readability must never imply write authority.
 
-## 7. Machine-readable agent policy
+## 12. Machine-readable agent policy
 
 The website publishes a project-specific `agent-policy.json`. It is an advisory interoperability document, **not an authentication mechanism or a general web standard**. It states what autonomous agents may safely infer from the public project surface and points to provenance and integrity records.
 
-## 8. Incident model
+## 13. Incident model
 
 If integrity is suspected:
 
@@ -168,15 +240,25 @@ If integrity is suspected:
 
 The preferred response is therefore closure-preserving: preserve evidence, preserve a trusted recovery point and preserve the ability to audit the incident.
 
-## 9. Security principle for autonomous entities
+## 14. Security principle for autonomous entities
 
 > **No entity — human, agent or conventional service — receives authority merely because it can communicate.**
 
 Communication creates an information edge. Authority requires a separately authenticated, scoped and auditable edge.
 
-## 10. Relationship to Closure Ethics
+## 15. Relationship to Closure Ethics
 
 This security model is an application of the same structural idea used by Closure Ethics: consequential transitions should preserve the capacity to detect error, contest authority and repair the system. Security does not mean making change impossible. It means making unauthorized, unauditable or irreversible change harder while preserving recoverable legitimate change.
+
+The project now keeps three related but separate layers:
+
+```text
+Universal Closure Protocol -> tests shared meaning
+Agentic Security           -> verifies identity, scope and authority
+Closure Ethics Governor    -> decides transition admissibility
+```
+
+Keeping those layers separate prevents semantic fluency from becoming an accidental capability-escalation mechanism.
 
 ---
 
