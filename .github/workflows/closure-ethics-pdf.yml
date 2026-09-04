@@ -35,9 +35,13 @@ jobs:
       - name: Install PDF dependency
         run: python -m pip install --disable-pip-version-check reportlab
 
-      - name: Run reference tests
+      - name: Run Closure Ethics governor tests
         working-directory: closure-ethics/09-implementation
         run: python -m unittest -v test_reference.py
+
+      - name: Run Universal Closure Protocol tests
+        working-directory: closure-ethics/11-communication
+        run: python -m unittest -v test_closure_protocol.py
 
       - name: Build PDF
         run: python closure-ethics/09-implementation/build_pdf.py
