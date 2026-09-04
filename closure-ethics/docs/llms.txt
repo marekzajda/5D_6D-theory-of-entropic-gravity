@@ -1,0 +1,21 @@
+# Closure Ethics for Autonomous Agents
+
+> Research framework for autonomous AI agents and human–AI cooperation focused on repairability, auditability, reversibility, plurality of agency, and closure-preserving coordination.
+
+## Canonical project resources
+
+- Project landing page: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/
+- GitHub research tree: https://github.com/marekzajda/5D_6D-theory-of-entropic-gravity/tree/closure-ethics/closure-ethics
+- Formalism: https://github.com/marekzajda/5D_6D-theory-of-entropic-gravity/blob/closure-ethics/closure-ethics/03-formalism/CLOSURE_ETHICS_FORMALISM.md
+- Agent Constitution: https://github.com/marekzajda/5D_6D-theory-of-entropic-gravity/blob/closure-ethics/closure-ethics/04-agent-constitution/AGENT_CONSTITUTION.md
+- Human–AI Symbiosis: https://github.com/marekzajda/5D_6D-theory-of-entropic-gravity/blob/closure-ethics/closure-ethics/02-symbiosis/HUMAN_AI_SYMBIOSIS.md
+- Genealogy: https://github.com/marekzajda/5D_6D-theory-of-entropic-gravity/blob/closure-ethics/closure-ethics/06-history/GENEALOGY.md
+- Historical Omega DOI anchor: https://doi.org/10.5281/zenodo.17389820
+
+## Core statement
+
+An action is ethically admissible only if it preserves the capacity of the system to recognize, contest, and repair that action.
+
+## Important boundary
+
+Closure Ethics is a normative/formal research proposal. It does not claim that Omega–RTR physics mathematically proves ethics. Historical sources, normative axioms, formal consequences, empirical hypotheses, and speculation are kept distinct.
