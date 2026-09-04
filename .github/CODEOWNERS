@@ -1,0 +1,7 @@
+# Closure Ethics security-sensitive ownership
+# Becomes enforceable when the closure-ethics branch rule requires CODEOWNERS review.
+
+/.github/workflows/ @marekzajda
+/closure-ethics/docs/ @marekzajda
+/closure-ethics/09-implementation/ @marekzajda
+/closure-ethics/10-security/ @marekzajda
