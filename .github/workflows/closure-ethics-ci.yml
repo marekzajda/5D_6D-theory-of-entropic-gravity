@@ -11,6 +11,7 @@ on:
       - 'closure-ethics/i18n/**'
       - 'closure-ethics/docs/**'
       - '.github/workflows/closure-ethics-ci.yml'
+      - '.github/workflows/closure-ethics-pages.yml'
   pull_request:
     branches:
       - closure-ethics
@@ -21,6 +22,7 @@ on:
       - 'closure-ethics/i18n/**'
       - 'closure-ethics/docs/**'
       - '.github/workflows/closure-ethics-ci.yml'
+      - '.github/workflows/closure-ethics-pages.yml'
   workflow_dispatch:
 
 permissions:
