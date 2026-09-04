@@ -8,6 +8,7 @@ on:
       - 'closure-ethics/09-implementation/**'
       - 'closure-ethics/11-communication/**'
       - 'closure-ethics/12-standard/**'
+      - 'closure-ethics/i18n/**'
       - 'closure-ethics/docs/**'
       - '.github/workflows/closure-ethics-ci.yml'
   pull_request:
@@ -17,6 +18,7 @@ on:
       - 'closure-ethics/09-implementation/**'
       - 'closure-ethics/11-communication/**'
       - 'closure-ethics/12-standard/**'
+      - 'closure-ethics/i18n/**'
       - 'closure-ethics/docs/**'
       - '.github/workflows/closure-ethics-ci.yml'
   workflow_dispatch:
@@ -33,48 +35,51 @@ jobs:
     name: Validate Closure Ethics
     runs-on: ubuntu-latest
     timeout-minutes: 10
-
     steps:
       - name: Checkout
         uses: actions/checkout@v6
         with:
           persist-credentials: false
-
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
           python-version: '3.12'
-
       - name: Install build dependency
         run: python -m pip install --disable-pip-version-check reportlab
-
       - name: Run Closure Ethics governor tests
         working-directory: closure-ethics/09-implementation
         run: python -m unittest -v test_reference.py
-
       - name: Run Universal Closure Protocol tests
         working-directory: closure-ethics/11-communication
         run: python -m unittest -v test_closure_protocol.py
-
       - name: Build publication PDF
         run: python closure-ethics/09-implementation/build_pdf.py
-
       - name: Verify generated PDF
         run: test -s closure-ethics/docs/downloads/Closure_Ethics_Implementation_Spec_v0.1.pdf
-
-      - name: Validate sitemap XML
+      - name: Build multilingual site
+        run: python closure-ethics/i18n/build_i18n.py
+      - name: Validate multilingual pages and sitemap XML
         run: |
           python - <<'PY'
           from pathlib import Path
           import xml.etree.ElementTree as ET
-
-          path = Path('closure-ethics/docs/sitemap.xml')
-          root = ET.parse(path).getroot()
+          root_dir = Path('closure-ethics/docs')
+          pages = ['index.html','principles.html','symbiosis.html','formalism.html','implementation.html','constitution.html','security.html','communication.html','standard.html','evals.html','genealogy.html']
+          for lang in ['cs','de','fr','es']:
+              for page in pages:
+                  p = root_dir / lang / page
+                  assert p.exists(), f'missing localized page: {p}'
+                  text = p.read_text(encoding='utf-8')
+                  assert f'<html lang="{lang}">' in text
+                  assert 'lang-switcher.js' in text
+          sitemap = root_dir / 'sitemap.xml'
+          root = ET.parse(sitemap).getroot()
           ns = {'sm': 'http://www.sitemaps.org/schemas/sitemap/0.9'}
           urls = [x.text for x in root.findall('.//sm:loc', ns)]
           assert urls, 'sitemap contains no URLs'
           assert len(urls) == len(set(urls)), 'sitemap contains duplicate URLs'
           expected_prefix = 'https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/'
           assert all(u.startswith(expected_prefix) for u in urls), 'unexpected sitemap URL outside project prefix'
-          print(f'Validated {len(urls)} sitemap URLs')
+          assert len(urls) >= 56, f'expected multilingual sitemap, found only {len(urls)} URLs'
+          print(f'Validated {len(urls)} sitemap URLs and {4*len(pages)} localized HTML pages')
           PY
