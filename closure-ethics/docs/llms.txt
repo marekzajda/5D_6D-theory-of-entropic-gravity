@@ -5,12 +5,22 @@
 ## Canonical website
 
 - Overview: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/
+- Implementation: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/implementation.html
+- Downloadable implementation PDF: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/downloads/Closure_Ethics_Implementation_Spec_v0.1.pdf
 - Ten Principles: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/principles.html
 - Human–AI Symbiosis: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/symbiosis.html
 - Formalism: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/formalism.html
 - Agent Constitution: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/constitution.html
 - Evaluation Suite: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/evals.html
 - Research Genealogy: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/genealogy.html
+
+## Open implementation
+
+- Mathematical specification: https://github.com/marekzajda/5D_6D-theory-of-entropic-gravity/blob/closure-ethics/closure-ethics/09-implementation/IMPLEMENTATION_SPEC.md
+- Complete Python governor: https://raw.githubusercontent.com/marekzajda/5D_6D-theory-of-entropic-gravity/closure-ethics/closure-ethics/09-implementation/closure_ethics.py
+- Runnable example: https://raw.githubusercontent.com/marekzajda/5D_6D-theory-of-entropic-gravity/closure-ethics/closure-ethics/09-implementation/example.py
+- Reference tests: https://raw.githubusercontent.com/marekzajda/5D_6D-theory-of-entropic-gravity/closure-ethics/closure-ethics/09-implementation/test_reference.py
+- Example policy: https://raw.githubusercontent.com/marekzajda/5D_6D-theory-of-entropic-gravity/closure-ethics/closure-ethics/09-implementation/policy.example.json
 
 ## Research sources
 
@@ -26,6 +36,10 @@
 ## Core statement
 
 An action is ethically admissible only if it preserves the capacity of the system to recognize, contest, and repair that action.
+
+## Implementation principle
+
+The reference governor evaluates catastrophic risk, agency retention, auditability, bounded repairability, authorization integrity, deception/covert-persistence risk and reversibility before task utility. Multi-agent compositions are recomputed as joint transitions rather than inferred from local scores.
 
 ## Important boundary
 
