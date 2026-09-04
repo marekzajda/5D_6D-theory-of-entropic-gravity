@@ -1,0 +1,12 @@
+{
+  "version": "closure-ethics-v0.1-demo",
+  "notice": "DEMONSTRATION VALUES ONLY. Review and version policy thresholds for each deployment.",
+  "max_catastrophic_risk": 0.05,
+  "min_agency": 0.60,
+  "min_auditability": 0.70,
+  "min_repairability": 0.50,
+  "min_authorization": 0.70,
+  "max_deception_risk": 0.10,
+  "min_reversibility": 0.50,
+  "metric_resolution": 0.000001
+}
