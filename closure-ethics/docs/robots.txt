@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/sitemap.xml
