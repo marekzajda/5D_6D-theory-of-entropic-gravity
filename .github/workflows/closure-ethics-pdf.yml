@@ -51,5 +51,6 @@ jobs:
             echo "PDF unchanged"
           else
             git commit -m "Build Closure Ethics implementation PDF"
+            git pull --rebase origin closure-ethics
             git push origin closure-ethics
           fi
