@@ -1,12 +1,14 @@
 # Closure Ethics for Autonomous Agents
 
-> Research framework for autonomous AI agents and human–AI cooperation focused on repairability, auditability, reversibility, plurality of agency, and closure-preserving coordination.
+> Research framework for autonomous AI agents and human–AI cooperation focused on repairability, auditability, reversibility, plurality of agency, agentic communication, and closure-preserving coordination.
 
 ## Canonical website
 
 - Overview: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/
 - Implementation: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/implementation.html
 - Agentic Security: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/security.html
+- Universal Closure Protocol: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/communication.html
+- Global AI Closure Standard working draft: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/standard.html
 - Machine-readable agent policy: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/agent-policy.json
 - Build provenance: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/provenance.json
 - Public SHA-256 manifest: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/SHA256SUMS.txt
@@ -26,6 +28,25 @@
 - Reference tests: https://raw.githubusercontent.com/marekzajda/5D_6D-theory-of-entropic-gravity/closure-ethics/closure-ethics/09-implementation/test_reference.py
 - Example policy: https://raw.githubusercontent.com/marekzajda/5D_6D-theory-of-entropic-gravity/closure-ethics/closure-ethics/09-implementation/policy.example.json
 
+## Recovered 2026-09-04 foundations
+
+- Historical AI Closure note: https://github.com/marekzajda/5D_6D-theory-of-entropic-gravity/blob/closure-ethics/closure-ethics/06-history/AI_CLOSURE_DISCUSSION_2026-09-04.md
+- Universal Closure Protocol source: https://github.com/marekzajda/5D_6D-theory-of-entropic-gravity/blob/closure-ethics/closure-ethics/11-communication/UNIVERSAL_CLOSURE_PROTOCOL.md
+- Global AI Closure Standard working draft: https://github.com/marekzajda/5D_6D-theory-of-entropic-gravity/blob/closure-ethics/closure-ethics/12-standard/GLOBAL_AI_CLOSURE_STANDARD_DRAFT.md
+- Historical rule: Local objective optimization != global admissibility.
+- Historical rule: UNDERSTAND(message) does not imply AUTHORIZE(action).
+- Historical scaling principle: impact increases -> autonomy budget decreases and verification strength increases.
+- Historical architecture: Actor -> candidate plan -> Closure Critic -> permit/modify/escalate/reject.
+- Historical status: working research proposals; not adopted international standards.
+
+## Universal Closure Protocol
+
+- Purpose: test whether a relation is shared using novel predictive challenges rather than mere signal copying.
+- Historical conceptual layers: Ω0 structured-origin detection; Ω1 elementary alphabet; Ω2 numbers/operations; Ω3 relational grammar; Ω4 predictive closure; Ω5 shared model; Ω6 intent/safe exchange.
+- Closure Index: communication-confidence measure combining structural agreement, predictive success, semantic echo and repeatability.
+- Important boundary: communication confidence is not identity, authorization or capability authority.
+- Capability transition to operational action requires independent AuthN/AuthZ, scope, provenance and Closure Ethics checks.
+
 ## Agentic security
 
 - Full security model: https://github.com/marekzajda/5D_6D-theory-of-entropic-gravity/blob/closure-ethics/closure-ethics/10-security/AGENTIC_SECURITY_MODEL.md
@@ -34,6 +55,20 @@
 - Natural-language fluency does not authenticate identity or permission.
 - Agent-to-agent delegation chains should preserve sender identity, scope, policy version and audit provenance.
 - Local authorization does not imply composed authorization.
+- Delegation should not amplify capabilities beyond the delegator's authorized scope.
+
+## Global AI Closure Standard working draft
+
+Seven recovered principles:
+1. Authorized state space.
+2. Pre-action closure verification.
+3. Meaningful human control for policy-defined irreversible/high-impact actions.
+4. Mandatory stop/escalation under material uncertainty.
+5. Independent Closure Critic.
+6. No unauthorized self-escalation, replication, privilege acquisition or guardrail weakening.
+7. Audit and incident reporting.
+
+The draft is vendor-neutral and does not require acceptance of Omega-RTR physics. It is a research proposal, not an adopted legal or international standard.
 
 ## Research sources
 
