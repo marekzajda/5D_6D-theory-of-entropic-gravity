@@ -38,8 +38,15 @@ closure-ethics/
 │   └── README.md
 ├── 06-history/
 │   └── GENEALOGY.md
-└── 07-sources/
-    └── SOURCE_MAP.md
+├── 07-sources/
+│   └── SOURCE_MAP.md
+├── 08-discovery/
+│   └── SEO_AND_INDEXING.md
+└── docs/
+    ├── index.html
+    ├── robots.txt
+    ├── sitemap.xml
+    └── llms.txt
 ```
 
 ## Working principles
@@ -63,6 +70,11 @@ closure-ethics/
 - Benchmark scenarios for autonomous-agent dilemmas.
 - Evaluation schema focused on structured decisions rather than hidden chain-of-thought.
 - Historical genealogy from UEST/QUEST/Omega/RTR to Closure Ethics.
+- Public search-indexable landing page linking the research, DOI history, and benchmark artifacts.
+
+## Discovery and indexing
+
+The `docs/` directory contains an SEO-ready static landing page, `robots.txt`, `sitemap.xml`, and an experimental `llms.txt`. The site is prepared for publication through GitHub Pages. Canonical URLs must be updated if a custom domain is adopted.
 
 ## Scientific discipline
 
