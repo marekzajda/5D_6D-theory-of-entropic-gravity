@@ -31,6 +31,39 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Open external links in new tabs
+        shell: bash
+        run: |
+          python - <<'PY'
+          import pathlib
+          import re
+
+          root = pathlib.Path('closure-ethics/docs')
+          internal_prefix = 'https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/'
+          anchor_re = re.compile(r'<a\b(?P<attrs>[^>]*\bhref=(?P<q>["\'])(?P<href>https?://[^"\']+)(?P=q)[^>]*)>', re.IGNORECASE)
+
+          def rewrite(match):
+              attrs = match.group('attrs')
+              href = match.group('href')
+              if href.startswith(internal_prefix):
+                  return match.group(0)
+              if re.search(r'\btarget\s*=', attrs, re.IGNORECASE):
+                  return match.group(0)
+              additions = ' target="_blank"'
+              if not re.search(r'\brel\s*=', attrs, re.IGNORECASE):
+                  additions += ' rel="noopener noreferrer"'
+              return '<a' + attrs + additions + '>'
+
+          changed = 0
+          for path in root.rglob('*.html'):
+              text = path.read_text(encoding='utf-8')
+              updated = anchor_re.sub(rewrite, text)
+              if updated != text:
+                  path.write_text(updated, encoding='utf-8')
+                  changed += 1
+          print(f'Updated external links in {changed} HTML file(s).')
+          PY
+
       - name: Generate public build provenance and SHA-256 manifest
         shell: bash
         env:
