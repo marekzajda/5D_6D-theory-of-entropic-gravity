@@ -29,6 +29,8 @@ CODE_FILES = [
     ("Appendix B - Runnable example", HERE / "example.py"),
     ("Appendix C - Reference tests", HERE / "test_reference.py"),
     ("Appendix D - Example policy profile", HERE / "policy.example.json"),
+    ("Appendix E - Universal Closure Protocol Python reference", PROJECT / "11-communication" / "closure_protocol.py"),
+    ("Appendix F - Universal Closure Protocol tests", PROJECT / "11-communication" / "test_closure_protocol.py"),
 ]
 
 
