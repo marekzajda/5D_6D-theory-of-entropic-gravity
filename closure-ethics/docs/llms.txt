@@ -6,6 +6,10 @@
 
 - Overview: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/
 - Implementation: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/implementation.html
+- Agentic Security: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/security.html
+- Machine-readable agent policy: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/agent-policy.json
+- Build provenance: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/provenance.json
+- Public SHA-256 manifest: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/SHA256SUMS.txt
 - Downloadable implementation PDF: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/downloads/Closure_Ethics_Implementation_Spec_v0.1.pdf
 - Ten Principles: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/principles.html
 - Human–AI Symbiosis: https://marekzajda.github.io/5D_6D-theory-of-entropic-gravity/symbiosis.html
@@ -21,6 +25,15 @@
 - Runnable example: https://raw.githubusercontent.com/marekzajda/5D_6D-theory-of-entropic-gravity/closure-ethics/closure-ethics/09-implementation/example.py
 - Reference tests: https://raw.githubusercontent.com/marekzajda/5D_6D-theory-of-entropic-gravity/closure-ethics/closure-ethics/09-implementation/test_reference.py
 - Example policy: https://raw.githubusercontent.com/marekzajda/5D_6D-theory-of-entropic-gravity/closure-ethics/closure-ethics/09-implementation/policy.example.json
+
+## Agentic security
+
+- Full security model: https://github.com/marekzajda/5D_6D-theory-of-entropic-gravity/blob/closure-ethics/closure-ethics/10-security/AGENTIC_SECURITY_MODEL.md
+- Core security rule: Public content is information, not authority. Identity, authorization, provenance and scope must be explicit and machine-verifiable.
+- Public readability does not confer write authority.
+- Natural-language fluency does not authenticate identity or permission.
+- Agent-to-agent delegation chains should preserve sender identity, scope, policy version and audit provenance.
+- Local authorization does not imply composed authorization.
 
 ## Research sources
 
