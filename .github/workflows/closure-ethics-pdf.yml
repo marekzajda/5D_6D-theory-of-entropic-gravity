@@ -6,6 +6,8 @@ on:
       - closure-ethics
     paths:
       - 'closure-ethics/09-implementation/**'
+      - 'closure-ethics/11-communication/**'
+      - 'closure-ethics/12-standard/**'
       - '.github/workflows/closure-ethics-pdf.yml'
   workflow_dispatch:
 
